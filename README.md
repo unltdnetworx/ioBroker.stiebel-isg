@@ -1,4 +1,4 @@
-![Logo](admin/energymanager.png)
+![Logo](admin/stiebel-isg.png)
 # ioBroker.stiebel-isg
 =================
 
