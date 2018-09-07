@@ -1,5 +1,5 @@
 {
-  "IP address of the isg": ["ip address of the Internet Service Gateway"],
+  "IP address or domain of the isg": ["ip address or domain of the Internet Service Gateway"],
   "username for the isg": ["username of the Internet Service Gateway"],
   "password for the isg": ["password of the Internet Service Gateway"],
   "IP address": ["ip address"],
