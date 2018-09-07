@@ -1,0 +1,51 @@
+{
+    "common": {
+        "name": "stiebel-isg",
+        "version": "0.0.1",
+        "news": {
+            "0.0.1": {
+                "en": "initial adapter",
+                "de": "Initiale Version",
+                "ru": "Первоначальный адаптер",
+                "pt": "Versão inicial",
+                "fr": "Version initiale",
+                "nl": "Eerste release"
+            }
+        },
+		"title": "stiebel-isg",
+        "titleLang": {
+            "en": "stiebel-isg",
+            "de": "stiebel-isg"
+        },
+        "desc": {
+            "en": "stiebel/tecalor internet service gateway",
+            "de": "Stiebel-Eltron/Tecalor Internet Service Gateway"
+        },
+        "authors": [
+            "Michael Schuster <development@unltd-networx.de>"
+        ],
+        "docs": {
+            "en": "docs/en/admin.md",
+            "de": "docs/de/admin.md"
+        },
+        "platform": "Javascript/Node.js",
+        "mode": "daemon",
+        "icon": "stiebel-isg.png",
+        "materialize": true,
+        "enabled": true,
+        "extIcon": "https://raw.githubusercontent.com/unltdnetworx/ioBroker.stiebel-isg/master/admin/stiebel-isg.png",
+        "keywords": ["stiebel-isg", "GUI", "stiebel-eltron", "tecalor"],
+        "readme": "https://github.com/unltdnetworx/ioBroker.stiebel-isg/blob/master/README.md",
+        "loglevel": "info",
+        "type": "climate-control",
+        "license": "MIT",
+        "messagebox": false
+    },
+    "native": {
+        "isgUser": "",
+        "isgPassword": "",
+        "isgAddress": "",
+        "isgIntervall": 60,
+        "isgCommandIntervall": 3600
+    }
+}

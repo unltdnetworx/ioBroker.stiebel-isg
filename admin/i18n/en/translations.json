@@ -1,0 +1,12 @@
+{
+  "IP address of the isg": ["ip address of the Internet Service Gateway"],
+  "username for the isg": ["username of the Internet Service Gateway"],
+  "password for the isg": ["password of the Internet Service Gateway"],
+  "IP address": ["ip address"],
+  "username": ["username"],
+  "password": ["password"],
+  "intervall for values to pull": ["intervall for values to pull out of the ISG"],
+  "intervall for commands to pull": ["intervall for commands to pull out of the ISG (changes less frequently)"],
+  "isg password": ["ISG password"],
+  "AUSSENTEMPERATUR": ["temperature outside"]
+}

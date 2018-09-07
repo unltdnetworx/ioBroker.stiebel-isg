@@ -1,0 +1,48 @@
+{
+  "name": "iobroker.stiebel-isg",
+  "version": "0.0.1",
+  "description": "stiebel/tecalor internet service gateway",
+  "author": {
+    "name": "Michael Schuster",
+    "email": "development@unltd-networx.de"
+  },
+  "contributors": [
+    {
+      "name": "Michael Schuster",
+      "email": "development@unltd-networx.de"
+    }
+  ],
+  "homepage": "https://github.com/unltdnetworx/ioBroker.stiebel-isg",
+  "license": "MIT",
+  "keywords": [
+    "ioBroker",
+    "Internet service gateway",
+    "Smart Home",
+    "home automation",
+    "Stiebel Eltron",
+    "Tecalor",
+    "ISG",
+    "ISG plus"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/unltdnetworx/ioBroker.stiebel-isg"
+  },
+  "dependencies": {
+    "request": "^2.72.0",
+    "cheerio": "^1.0.0-rc.2"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "mocha": "^4.1.0",
+    "chai": "^4.1.2"
+  },
+  "main": "main.js",
+  "scripts": {
+    "test": "node node_modules/mocha/bin/mocha --exit"
+  },
+  "bugs": {
+    "url": "https://github.com/unltdnetworx/ioBroker.stiebel-isg/issues"
+  },
+  "readmeFilename": "README.md"
+}

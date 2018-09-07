@@ -1,0 +1,14 @@
+{
+  "IP address of the isg": ["IP-Adresse des Internet Service Gateway"],
+  "username for the isg": ["Benutzername des Internet Service Gateway"],
+  "password for the isg": ["Passwort des Internet Service Gateway"],
+  "IP address": ["IP Adresse"],
+  "username": ["Benutzername"],
+  "password": ["Passwort"],
+  "intervall for values to pull": ["Intervall zur Abholung neuer Werte aus dem ISG"],
+  "intervall for commands to pull": ["Intervall zur Abholung neuer Einstellungswerte aus dem ISG (Änderungen seltener)"],
+  "isg password": ["Passwort ISG"],
+  "settings": ["Einstellungen"],
+  "AUSSENTEMPERATUR": ["Aussentemperatur"],
+  "STUFE-TAG": ["Lüftungsstufe Tag", "val82"]
+}
