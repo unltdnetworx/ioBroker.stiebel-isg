@@ -17,7 +17,7 @@ var jar;
 let host;
 const commandPaths = ["/?s=4,0,2","/?s=4,0,3","/?s=4,0,4","/?s=4,0,5","/?s=4,1,0","/?s=4,2,0","/?s=4,2,1","/?s=4,2,2","/?s=4,2,6"];
 //"/?s=4,1,1","/?s=4,2,3","/?s=4,2,4","/?s=4,2,5","/?s=4,2,7" //other syntax required, WIP
-const valuePaths = ["/?s=1,0","/?s=1,2"];
+const valuePaths = ["/?s=1,0","/?s=1,1"];
 
 const request = require('request');
 const cheerio = require('cheerio');
@@ -140,13 +140,23 @@ function getIsgValues(sidePath) {
         if (!error && response.statusCode == 200) {
             let $ = cheerio.load(content);
             
+            let submenu = $('#sub_nav')
+                .children()
+                .first()
+                .text()
+                .replace(/[\-\/]+/g,"_")
+                .replace(/[ \.]+/g,"")
+                .replace(/[\u00df]+/g,"SS");
+
             $('.info').each((i, el) => {                
                 let group = $(el)
                     .find(".round-top")    
                     .text()
                     .replace(/[ \-]+/g,"_")
                     .replace(/[\.]+/g,"")
-                    .replace(/[\u00df]+/,"SS");;
+                    .replace(/[\u00df]+/,"SS");
+                
+                group = submenu + "." + group
                 
                 $(el).find('tr').each(function() {
                     let valueName = $(this)
@@ -188,7 +198,7 @@ function getIsgValues(sidePath) {
                     }
                     
                     if(key){
-                        updateState (group,key,translateName(valueName),valType,unit,valueRole,value);
+                        updateState (translateName("info") + "." + group,key,translateName(valueName),valType,unit,valueRole,value);
                     }
                 }); 
             })

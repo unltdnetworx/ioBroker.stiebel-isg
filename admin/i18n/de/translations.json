@@ -10,5 +10,6 @@
   "isg password": ["Passwort ISG"],
   "settings": ["Einstellungen"],
   "AUSSENTEMPERATUR": ["Aussentemperatur"],
-  "STUFE-TAG": ["Lüftungsstufe Tag", "val82"]
+  "STUFE-TAG": ["Lüftungsstufe Tag", "val82"],
+  "info": ["Info"]
 }

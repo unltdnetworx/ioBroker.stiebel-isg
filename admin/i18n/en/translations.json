@@ -8,5 +8,6 @@
   "intervall for values to pull": ["intervall for values to pull out of the ISG"],
   "intervall for commands to pull": ["intervall for commands to pull out of the ISG (changes less frequently)"],
   "isg password": ["ISG password"],
-  "AUSSENTEMPERATUR": ["temperature outside"]
+  "AUSSENTEMPERATUR": ["temperature outside"],
+  "info": ["info"]
 }
