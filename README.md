@@ -18,6 +18,10 @@ Help or hints are welcome.
 
 ## Changelog
 
+### 0.1.0
+* release candidate for stable
+* additional controles added
+
 ### 0.0.1
 * initial release
 

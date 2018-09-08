@@ -15,8 +15,7 @@ let isgIntervall;
 let isgCommandIntervall;
 var jar;
 let host;
-const commandPaths = ["/?s=4,0,2","/?s=4,0,3","/?s=4,0,4","/?s=4,0,5","/?s=4,1,0","/?s=4,2,0","/?s=4,2,1","/?s=4,2,2","/?s=4,2,6"];
-//"/?s=4,1,1","/?s=4,2,3","/?s=4,2,4","/?s=4,2,5","/?s=4,2,7" //other syntax required, WIP
+const commandPaths = ["/?s=0","/?s=4,0,2","/?s=4,0,3","/?s=4,0,4","/?s=4,0,5","/?s=4,1,0","/?s=4,1,1","/?s=4,2,0","/?s=4,2,1","/?s=4,2,2","/?s=4,2,4","/?s=4,2,6","/?s=4,2,3","/?s=4,2,5","/?s=4,2,7"];
 const valuePaths = ["/?s=1,0","/?s=1,1"];
 
 const request = require('request');
@@ -267,21 +266,76 @@ function getIsgCommands(sidePath) {
             let submenu = $.html().match(/#subnavactivename"\).html\('(.*?)'/);
             
             //Get values from script, because JavaScript isn't running with cheerio.
-            $('#werte').find("input").each(function(i, el) { 
-                let scriptValues = $(this)
-                    .next()
-                    .get()[0]
-                    .children[0]
-                    .data;
+            $('#werte').find("input").each(function(i, el) {               
+                if(sidePath == "/?s=0"){
+                    let nameCommand;
+                    let valCommand;
+                    let idCommand;
+                    let statesCommand;
+                    nameCommand = $(el).parent().parent().find('h3').text();
+                    if(nameCommand == "Betriebsart"){                  
+                        let idStartCommand = $(el).attr('name');
+                        if(idStartCommand.match(/aval/)) {
+                            $(el).parent().parent().parent().parent().find('div.values').each(function(j, ele){
+                                statesCommand = '{';
+                                $(ele).find('input').each(function(k,elem){
+                                    idCommand = $(elem).attr('name');
+                                    if(!(idCommand.match(/aval/) || idCommand.match(/info/))) {
+                                        if(idCommand.match(/[0-9]s/)){
+                                            if(statesCommand !== "{"){
+                                                statesCommand += ",";
+                                            }
+                                            statesCommand += '"' + $(elem).attr('value') + '":"' + $(elem).next().text() + '"';
+                                        } else {
+                                            valCommand = $(elem).attr('value');
+                                        } 
+                                    }
+                                })  
+                            })
+                            statesCommand += "}";
+                            createISGCommands(translateName("Start"), idCommand, nameCommand, "number","","level",valCommand,statesCommand,"","");
+                        }
+                    }
+                } else if($(this).parent().find('div.black').html()) {
+                    $(this).parent().find('div.black').each(function(j, ele){
+                        let nameCommand = $(ele).parent().parent().parent().find('h3').text();
+                        let idCommand = $(ele).find('input').attr('name');
+                        let valCommand;
 
-                let nameCommand = $(this).parent().parent().find('h3').text();
-                let minCommand = scriptValues.match(/\['min'] = '(.*?)'/);
-                let maxCommand = scriptValues.match(/\['max'] = '(.*?)'/);
-                let valCommand = scriptValues.match(/\['val']='(.*?)'/);
-                let idCommand = scriptValues.match(/\['id']='(.*?)'/);
+                        let statesCommand = '{'
+                        $(ele).find('input').each(function(j, el){
+                            if(statesCommand !== "{"){
+                                statesCommand += ",";
+                            }
+                            statesCommand += '"' + $(el).attr('value') + '":"' + $(el).attr('alt') + '"';
 
-                if(maxCommand){
-                    createISGCommands(translateName("settings") + "." + group + "." + submenu[1], idCommand[1], nameCommand, "number","","state",valCommand[1],"",minCommand[1],maxCommand[1]);
+                            if($(el).attr('checked') == 'checked'){
+                                valCommand = $(el).attr('value');
+                            }
+                        })
+                        statesCommand += "}";
+                        createISGCommands(translateName("settings") + "." + group + "." + submenu[1], idCommand, nameCommand, "number","","level",valCommand,statesCommand,"","");
+                    })
+                } else {
+                    let scriptValues = $(el)
+                        .next()
+                        .get()[0]
+                        .children[0]
+                        .data;
+                
+                    if(scriptValues){
+                        let nameCommand = $(el).parent().parent().find('h3').text();
+                        
+                        let minCommand = scriptValues.match(/\['min'] = '(.*?)'/);
+                        let maxCommand = scriptValues.match(/\['max'] = '(.*?)'/);
+                        let valCommand = scriptValues.match(/\['val']='(.*?)'/);
+                        let idCommand = scriptValues.match(/\['id']='(.*?)'/);
+                        let unitCommand = $(el).parent().parent().find('.append-1').text();
+                        
+                        if(idCommand){
+                            createISGCommands(translateName("settings") + "." + group + "." + submenu[1], idCommand[1], nameCommand, "number",unitCommand,"state",valCommand[1],"",minCommand[1],maxCommand[1]);
+                        }
+                    }
                 }
             })
         } else {
@@ -351,6 +405,4 @@ function main() {
                 getIsgCommands(item);
             })
         }, (adapter.config.isgCommandIntervall * 1000));
-
-    createISGCommands('Einstellungen','val39s','Betriebsart','number','','level','11','{"11":"AUTOMATIK", "1":"BEREITSCHAFT", "3":"TAGBETRIEB", "4":"ABSENKBETRIEB","5":"WARMWASSER", "14":"HANDBETRIEB", "0":"NOTBETRIEB"}');
 }

@@ -1,8 +1,12 @@
 {
     "common": {
         "name": "stiebel-isg",
-        "version": "0.0.1",
+        "version": "0.1.0",
         "news": {
+            "0.1.0": {
+                "en": "release candidate for stable, additional controlls",
+                "de": "Release Kandidate für stabile Version, zusätzliche Einstellungen"
+            },
             "0.0.1": {
                 "en": "initial adapter",
                 "de": "Initiale Version",
