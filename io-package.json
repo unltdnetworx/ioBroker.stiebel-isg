@@ -1,14 +1,18 @@
 {
     "common": {
         "name": "stiebel-isg",
-        "version": "1.0.0",
+        "version": "1.0.1",
         "news": {
+            "1.0.1": {
+                "en": "added two new groups for controls, roomtemp 1 and 2",
+                "de": "Zwei neue Einstellungsgruppe hinzugefügt, Raumtemperatur HK1 und HK2"
+            },
             "1.0.0": {
                 "en": "confirmed stable release",
                 "de": "bestätigte stabile Version"
             },
             "0.1.0": {
-                "en": "release candidate for stable, additional controlls",
+                "en": "release candidate for stable, additional controls",
                 "de": "Release Kandidate für stabile Version, zusätzliche Einstellungen"
             },
             "0.0.1": {
