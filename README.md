@@ -4,7 +4,7 @@
 
 This adapter is a ment to read values from stiebel-eltron/tecalor internet service gateways (ISG) and control the device.
 
-USE AT YOUR OWN RISK!!! ABSOLUTELY NO WARRANTY FOR DAMAGES ETC.!!!
+USE AT YOUR OWN RISK!!! ABSOLUTELY NO WARRANTY FOR DAMAGES, ETC.!!!
 
 Help or hints are welcome.
 
@@ -17,6 +17,9 @@ Help or hints are welcome.
 * stiebel-eltron/teclor internet service gateway (ISG)   
 
 ## Changelog
+
+### 1.0.0
+* confirmed stable release
 
 ### 0.1.0
 * release candidate for stable
