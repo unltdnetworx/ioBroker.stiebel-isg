@@ -3,6 +3,10 @@
         "name": "stiebel-isg",
         "version": "1.0.1",
         "news": {
+            "1.0.2": {
+                "en": "code cleanup",
+                "de": "Code aufgeräumt"
+            },
             "1.0.1": {
                 "en": "added two new groups for controls, roomtemp 1 and 2",
                 "de": "Zwei neue Einstellungsgruppe hinzugefügt, Raumtemperatur HK1 und HK2"

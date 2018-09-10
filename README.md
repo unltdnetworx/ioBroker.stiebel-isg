@@ -18,6 +18,9 @@ Help or hints are welcome.
 
 ## Changelog
 
+### 1.0.2
+* code cleanup
+
 ### 1.0.1
 * added two new groups for controls, roomtemp 1 and 2
 
