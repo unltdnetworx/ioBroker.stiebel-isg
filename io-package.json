@@ -1,7 +1,7 @@
 {
     "common": {
         "name": "stiebel-isg",
-        "version": "1.0.1",
+        "version": "1.0.2",
         "news": {
             "1.0.2": {
                 "en": "code cleanup",
