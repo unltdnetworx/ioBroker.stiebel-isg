@@ -18,6 +18,9 @@ Help or hints are welcome.
 
 ## Changelog
 
+### 1.0.3
+* bugfix in version number
+
 ### 1.0.2
 * code cleanup
 
