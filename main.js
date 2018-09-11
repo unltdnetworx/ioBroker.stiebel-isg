@@ -15,7 +15,7 @@ let isgIntervall;
 let isgCommandIntervall;
 var jar;
 let host;
-const commandPaths = ["/?s=0","/?s=4,0,0","/?s=4,0,1","/?s=4,0,2","/?s=4,0,3","/?s=4,0,4","/?s=4,0,5","/?s=4,1,0","/?s=4,1,1","/?s=4,2,0","/?s=4,2,1","/?s=4,2,2","/?s=4,2,4","/?s=4,2,6","/?s=4,2,3","/?s=4,2,5","/?s=4,2,7"];
+const commandPaths = ["/?s=0","/?s=4,0,0","/?s=4,0,1","/?s=4,0,2","/?s=4,0,3","/?s=4,0,4","/?s=4,0,5","/?s=4,1,0","/?s=4,1,1","/?s=4,2,0","/?s=4,2,1","/?s=4,2,2","/?s=4,2,4","/?s=4,2,6","/?s=4,2,3","/?s=4,2,5","/?s=4,2,7","/?s=4,3"];
 const valuePaths = ["/?s=1,0","/?s=1,1"];
 
 const request = require('request');
@@ -264,6 +264,7 @@ function getIsgCommands(sidePath) {
                 .replace(/[\u00df]+/g,"SS");
 
             let submenu = $.html().match(/#subnavactivename"\).html\('(.*?)'/);
+            let submenupath = "";
             
             //Get values from script, because JavaScript isn't running with cheerio.
             $('#werte').find("input").each(function(i, el) {               
@@ -314,7 +315,10 @@ function getIsgCommands(sidePath) {
                             }
                         })
                         statesCommand += "}";
-                        createISGCommands(translateName("settings") + "." + group + "." + submenu[1], idCommand, nameCommand, "number","","level",valCommand,statesCommand,"","");
+                        if(submenu){
+                            submenupath += "." + submenu[1];
+                        }
+                        createISGCommands(translateName("settings") + "." + group + submenupath, idCommand, nameCommand, "number","","level",valCommand,statesCommand,"","");
                     })
                 } else {
                     let scriptValues = $(el)
@@ -333,7 +337,10 @@ function getIsgCommands(sidePath) {
                         let unitCommand = $(el).parent().parent().find('.append-1').text();
                         
                         if(idCommand){
-                            createISGCommands(translateName("settings") + "." + group + "." + submenu[1], idCommand[1], nameCommand, "number",unitCommand,"state",valCommand[1],"",minCommand[1],maxCommand[1]);
+                            if(submenu){
+                                submenupath += "." + submenu[1];
+                            }
+                            createISGCommands(translateName("settings") + "." + group + submenupath, idCommand[1], nameCommand, "number",unitCommand,"state",valCommand[1],"",minCommand[1],maxCommand[1]);
                         }
                     }
                 }

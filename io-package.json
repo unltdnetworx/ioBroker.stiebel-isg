@@ -1,8 +1,12 @@
 {
     "common": {
         "name": "stiebel-isg",
-        "version": "1.0.3",
+        "version": "1.1.0",
         "news": {
+            "1.1.0": {
+                "en": "Energymanagment added (ISG plus required)",
+                "de": "Energymanagment hinzugefügt (ISG plus erforderlich)"
+            },
             "1.0.3": {
                 "en": "bugfix in version number",
                 "de": "Bugfix in version"

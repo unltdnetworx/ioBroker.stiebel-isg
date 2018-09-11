@@ -18,6 +18,9 @@ Help or hints are welcome.
 
 ## Changelog
 
+### 1.1.0
+* Energymanagment added (ISG plus required)
+
 ### 1.0.3
 * bugfix in version number
 
