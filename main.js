@@ -316,6 +316,7 @@ function getIsgCommands(sidePath) {
                         })
                         statesCommand += "}";
                         if(submenu){
+                            submenupath = "";
                             submenupath += "." + submenu[1];
                         }
                         createISGCommands(translateName("settings") + "." + group + submenupath, idCommand, nameCommand, "number","","level",valCommand,statesCommand,"","");
@@ -338,6 +339,7 @@ function getIsgCommands(sidePath) {
                         
                         if(idCommand){
                             if(submenu){
+                                submenupath = "";
                                 submenupath += "." + submenu[1];
                             }
                             createISGCommands(translateName("settings") + "." + group + submenupath, idCommand[1], nameCommand, "number",unitCommand,"state",valCommand[1],"",minCommand[1],maxCommand[1]);
