@@ -18,6 +18,9 @@ Help or hints are welcome.
 
 ## Changelog
 
+### 1.1.1
+* bugfix for controls-menu
+
 ### 1.1.0
 * Energymanagment added (ISG plus required)
 
