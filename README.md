@@ -18,6 +18,9 @@ Help or hints are welcome.
 
 ## Changelog
 
+### 1.2.1
+* according to a problem with the history-adapter, umlauts can now be deactivated
+
 ### 1.2.0
 * status for photovoltaik and device included
 

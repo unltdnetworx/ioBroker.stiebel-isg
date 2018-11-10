@@ -1,8 +1,12 @@
 {
     "common": {
         "name": "stiebel-isg",
-        "version": "1.2.0",
+        "version": "1.2.1",
         "news": {
+            "1.2.1": {
+                "en": "according to a problem with the history-adapter, umlauts can now be deactivated",
+                "de": "Aufgrund eines Problems mit dem History-Adapter können Umlaute jetzt deaktiviert werden."
+            },
             "1.2.0": {
                 "en": "status for photovoltaik and device included",
                 "de": "Statuswerte Photovoltaik und Gerätestatus inkludiert"

@@ -9,5 +9,8 @@
   "intervall for commands to pull": ["intervall for commands to pull out of the ISG (changes less frequently)"],
   "isg password": ["ISG password"],
   "AUSSENTEMPERATUR": ["temperature outside"],
-  "info": ["info"]
+  "info": ["info"],
+  "yes": ["yes"],
+  "no": ["no"],
+  "umlauts active": ["Activate umlauts in objects. Warning: could cause problems in history-adapter."]
 }
