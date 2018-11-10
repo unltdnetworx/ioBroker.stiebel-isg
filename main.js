@@ -17,6 +17,7 @@ var jar;
 let host;
 const commandPaths = ["/?s=0","/?s=4,0,0","/?s=4,0,1","/?s=4,0,2","/?s=4,0,3","/?s=4,0,4","/?s=4,0,5","/?s=4,1,0","/?s=4,1,1","/?s=4,2,0","/?s=4,2,1","/?s=4,2,2","/?s=4,2,4","/?s=4,2,6","/?s=4,2,3","/?s=4,2,5","/?s=4,2,7","/?s=4,3"];
 const valuePaths = ["/?s=1,0","/?s=1,1"];
+const statusPaths = ["/?s=2,0", "/?s=1,0"];
 
 const request = require('request');
 const cheerio = require('cheerio');
@@ -44,6 +45,7 @@ adapter.on('ready', function () {
 adapter.on('unload', function (callback) {
     try {
         if (isgIntervall) clearInterval(isgIntervall);
+        if (isgCommandIntervall) clearInterval(isgCommandIntervall);
         adapter.log.info('cleaned everything up...');
         callback();
     } catch (e) {
@@ -114,6 +116,87 @@ function updateState (strGroup,valTag,valTagLang,valType,valUnit,valRole,valValu
             {val: valValue, ack: true, expire: (adapter.config.isgIntervall*2)} //value expires if adapter can't pull it from hardware
         )
     );
+}
+
+function getIsgStatus(sidePath) {
+    let strURL = host + sidePath;
+    
+    const payload = querystring.stringify({
+        user: adapter.config.isgUser,
+        pass: adapter.config.isgPassword
+    });
+    
+    const options = {
+        method: 'POST',
+        body: payload,
+        uri: strURL,
+        jar: getJar(),
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'Connection': 'keep-alive'
+        }
+    };
+    
+    request(options, function (error, response, content) {
+        if (!error && response.statusCode == 200) {
+            let $ = cheerio.load(content);
+            
+            let submenu = $('#sub_nav')
+                .children()
+                .first()
+                .text()
+                .replace(/[\-\/]+/g,"_")
+                .replace(/[ \.]+/g,"")
+                .replace(/[\u00df]+/g,"SS");
+
+            $('.info').each((i, el) => {                
+                let group = $(el)
+                    .find(".round-top")    
+                    .text()
+                    .replace(/[ \-]+/g,"_")
+                    .replace(/[\.]+/g,"")
+                    .replace(/[\u00df]+/,"SS");
+                
+                group = submenu + "." + group
+                
+                $(el).find('tr').each(function() {
+                    let valueName = $(this)
+                        .find(".key")
+                        .text();
+                    
+                    let key = $(this)
+                        .find(".key")
+                        .text()
+                        .replace(/[ \-]+/g,"_")
+                        .replace(/[\.]+/g,"")
+                        .replace(/[\u00df]+/,"SS");
+
+                    //<img src="./pics/tec-symbol_an-8e8e8e.png" height="15">                   
+                    let param = $(this)
+                        .find(".value")
+                        .html();
+                    
+                    let value;
+
+                    if(param !== null){
+                        if (param.search('symbol_an') > -1){
+                            value = true;
+                        }
+                    }
+                    
+                    let valType = typeof value;
+                    let valueRole;
+                    
+                    if(value === true){
+                        //adapter.log.error(value);
+                        updateState (translateName("info") + "." + group,key,translateName(valueName),"state","","indicator.state",value);
+                    }
+                }); 
+            })
+        } else {
+            adapter.log.error(error);
+        }
+    });
 }
 
 function getIsgValues(sidePath) {
@@ -196,7 +279,7 @@ function getIsgValues(sidePath) {
                         valueRole = 'value';
                     }
                     
-                    if(key){
+                    if(key && value){
                         updateState (translateName("info") + "." + group,key,translateName(valueName),valType,unit,valueRole,value);
                     }
                 }); 
@@ -395,6 +478,10 @@ function main() {
     }
     adapter.subscribeStates('*')
     
+    statusPaths.forEach(function(item){
+        getIsgStatus(item);
+    })
+
     valuePaths.forEach(function(item){
         getIsgValues(item);
     })
@@ -406,8 +493,12 @@ function main() {
     isgIntervall = setInterval(function(){
             valuePaths.forEach(function(item){
                 getIsgValues(item);
+            }), statusPaths.forEach(function(item){
+                getIsgStatus(item);
             })
         }, (adapter.config.isgIntervall * 1000));
+
+    
 
     isgCommandIntervall = setInterval(function(){
             commandPaths.forEach(function(item){

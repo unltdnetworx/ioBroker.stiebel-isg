@@ -18,6 +18,9 @@ Help or hints are welcome.
 
 ## Changelog
 
+### 1.2.0
+* status for photovoltaik and device included
+
 ### 1.1.1
 * bugfix for controls-menu
 

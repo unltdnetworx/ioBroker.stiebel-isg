@@ -1,8 +1,12 @@
 {
     "common": {
         "name": "stiebel-isg",
-        "version": "1.1.1",
+        "version": "1.2.0",
         "news": {
+            "1.2.0": {
+                "en": "status for photovoltaik and device included",
+                "de": "Statuswerte Photovoltaik und Gerätestatus inkludiert"
+            },
             "1.1.1": {
                 "en": "bugfix for controls-menu",
                 "de": "Fehlerbehebung für Einstellungen-Menü"
