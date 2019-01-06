@@ -17,6 +17,8 @@ Help or hints are welcome.
 * stiebel-eltron/teclor internet service gateway (ISG)   
 
 ## Changelog
+### 1.2.2
+* additional values available, like filter-liftime
 
 ### 1.2.1
 * according to a problem with the history-adapter, umlauts can now be deactivated

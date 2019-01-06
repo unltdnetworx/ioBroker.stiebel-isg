@@ -1,8 +1,12 @@
 {
     "common": {
         "name": "stiebel-isg",
-        "version": "1.2.1",
+        "version": "1.2.2",
         "news": {
+            "1.2.1": {
+                "en": "additional values available, like filter-liftime",
+                "de": "Weitere Werte werden ausgelesen, z.B. Filter-Laufzeit"
+            },
             "1.2.1": {
                 "en": "according to a problem with the history-adapter, umlauts can now be deactivated",
                 "de": "Aufgrund eines Problems mit dem History-Adapter können Umlaute jetzt deaktiviert werden."

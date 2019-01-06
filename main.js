@@ -97,6 +97,15 @@ function translateName(strName, intType) {
 }
 
 function updateState (strGroup,valTag,valTagLang,valType,valUnit,valRole,valValue) {
+    
+    let ValueExpire = null;
+
+    if(strGroup.startsWith(translateName("settings"))){
+        ValueExpire = (adapter.config.isgCommandIntervall*2);
+    } else {
+        ValueExpire = (adapter.config.isgIntervall*2);
+    }
+    
     if(adapter.config.isgUmlauts == "no"){
         valTag = valTag
             .replace(/[\u00c4]+/g,"AE")           
@@ -124,7 +133,7 @@ function updateState (strGroup,valTag,valTagLang,valType,valUnit,valRole,valValu
         },
         adapter.setState(
             strGroup + "." + valTag,
-            {val: valValue, ack: true, expire: (adapter.config.isgIntervall*2)} //value expires if adapter can't pull it from hardware
+            {val: valValue, ack: true, expire: ValueExpire} //value expires if adapter can't pull it from hardware
         )
     );
 }
@@ -371,7 +380,7 @@ function getIsgCommands(sidePath) {
             let submenupath = "";
             
             //Get values from script, because JavaScript isn't running with cheerio.
-            $('#werte').find("input").each(function(i, el) {               
+            $('#werte').find("input").each(function(i, el) {
                 if(sidePath == "/?s=0"){
                     let nameCommand;
                     let valCommand;
@@ -449,6 +458,21 @@ function getIsgCommands(sidePath) {
                             createISGCommands(translateName("settings") + "." + group + submenupath, idCommand[1], nameCommand, "number",unitCommand,"state",valCommand[1],"",minCommand[1],maxCommand[1]);
                         }
                     }
+                }
+            })
+            //"Info_alone" Felder
+            $('#werte').find('.info_alone').each(function(i, el) {
+                let valValue = $(el).text();
+                let nameCommand = $(el).parent().parent().find('h3').text();
+                let idCommand = $(el).parent().parent().attr('id');
+                let unitCommand = $(el).parent().parent().find('.append-1').text();
+                
+                if(valValue){
+                    if(submenu){
+                        submenupath = "";
+                        submenupath += "." + submenu[1];
+                    }
+                    updateState(translateName("settings") + "." + group + submenupath, idCommand, translateName(nameCommand), "number",unitCommand,"state",valValue);
                 }
             })
         } else {
