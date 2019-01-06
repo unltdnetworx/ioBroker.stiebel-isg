@@ -18,7 +18,7 @@ Help or hints are welcome.
 
 ## Changelog
 ### 1.2.2
-* additional values available, like filter-liftime
+* additional values available, like filter-lifetime
 
 ### 1.2.1
 * according to a problem with the history-adapter, umlauts can now be deactivated

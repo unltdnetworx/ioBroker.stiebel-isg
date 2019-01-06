@@ -3,8 +3,8 @@
         "name": "stiebel-isg",
         "version": "1.2.2",
         "news": {
-            "1.2.1": {
-                "en": "additional values available, like filter-liftime",
+            "1.2.2": {
+                "en": "additional values available, like filter-lifetime",
                 "de": "Weitere Werte werden ausgelesen, z.B. Filter-Laufzeit"
             },
             "1.2.1": {
