@@ -437,14 +437,14 @@ function getIsgCommands(sidePath) {
                 } else {
                     let parentsClass = $(el)
                         .parent()
-                        .class;
+                        .attr('class');
                     
                     let scriptValues;
                     
                     if (parentsClass == "current"){
                         $(el).parent().parent().find('div.black').each(function(j, ele){
-                            let nameCommand = $(ele).parent().parent().parent().parent().parent().find('h3').text();
-                            let idCommand = $(ele).find('input').attr('id');
+                            let nameCommand = $(ele).parent().parent().parent().parent().find('h3').text();
+                            let idCommand = $(ele).parent().find('input').attr('id');
                             let valCommand;
     
                             $(ele).parent().find('input').each(function(j, el){
@@ -459,29 +459,38 @@ function getIsgCommands(sidePath) {
                             updateState(translateName("settings") + "." + group + submenupath, idCommand, translateName(nameCommand), "number", "","level",valCommand);
                         })
                     } else {
-                        scriptValues = $(el)
-                            .next()
-                            .get()[0]
-                            .children[0]
-                            .data;
+                        //ignore hidden fields (chval*)
+                        let parentsID = $(el).parent().attr('id');
                         
-                        if(scriptValues){
-                            let nameCommand = $(el).parent().parent().find('h3').text();
-                            
-                            let minCommand = scriptValues.match(/\['min'] = '(.*?)'/);
-                            let maxCommand = scriptValues.match(/\['max'] = '(.*?)'/);
-                            let valCommand = scriptValues.match(/\['val']='(.*?)'/);
-                            let idCommand = scriptValues.match(/\['id']='(.*?)'/);
-                            let unitCommand = $(el).parent().parent().find('.append-1').text();
-                            
-                            if(idCommand){
-                                if(submenu){
-                                    submenupath = "";
-                                    submenupath += "." + submenu[1];
-                                }
-                                createISGCommands(translateName("settings") + "." + group + submenupath, idCommand[1], nameCommand, "number",unitCommand,"state",valCommand[1],"",minCommand[1],maxCommand[1]);
-                            }
+                        if(parentsID === undefined) {
+                            parentsID = "";
                         }
+
+                        if (!(parentsID.includes('chval'))) {
+                            scriptValues = $(el)
+                                .next()
+                                .get()[0]
+                                .children[0]
+                                .data;
+                            
+                            if(scriptValues){
+                                let nameCommand = $(el).parent().parent().find('h3').text();
+                                
+                                let minCommand = scriptValues.match(/\['min'] = '(.*?)'/);
+                                let maxCommand = scriptValues.match(/\['max'] = '(.*?)'/);
+                                let valCommand = scriptValues.match(/\['val']='(.*?)'/);
+                                let idCommand = scriptValues.match(/\['id']='(.*?)'/);
+                                let unitCommand = $(el).parent().parent().find('.append-1').text();
+                                
+                                if(idCommand){
+                                    if(submenu){
+                                        submenupath = "";
+                                        submenupath += "." + submenu[1];
+                                    }
+                                    createISGCommands(translateName("settings") + "." + group + submenupath, idCommand[1], nameCommand, "number",unitCommand,"state",valCommand[1],"",minCommand[1],maxCommand[1]);
+                                }
+                            }
+                        } 
                     }
                 }
             })

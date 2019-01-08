@@ -1,8 +1,12 @@
 {
     "common": {
         "name": "stiebel-isg",
-        "version": "1.2.2",
+        "version": "1.2.3",
         "news": {
+            "1.2.2": {
+                "en": "bug repaired: ignore hidden fields in some heatings",
+                "de": "Bug behoben: Versteckte Felder in manchen Heizungen werden ignoriert"
+            },
             "1.2.2": {
                 "en": "additional values available, like filter-lifetime",
                 "de": "Weitere Werte werden ausgelesen, z.B. Filter-Laufzeit"

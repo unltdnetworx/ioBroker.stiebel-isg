@@ -17,6 +17,9 @@ Help or hints are welcome.
 * stiebel-eltron/teclor internet service gateway (ISG)   
 
 ## Changelog
+### 1.2.3
+* bug repaired: ignore hidden fields in some heatings
+
 ### 1.2.2
 * additional values available, like filter-lifetime
 
