@@ -1,8 +1,12 @@
 {
     "common": {
         "name": "stiebel-isg",
-        "version": "1.2.3",
+        "version": "1.2.4",
         "news": {
+            "1.2.4": {
+                "en": "bug repaired: unnecessary space characters in units removed ",
+                "de": "Bug behoben: vereinzelte unnötige Leerzeichen in Einheiten entfernt"
+            },
             "1.2.3": {
                 "en": "bug repaired: ignore hidden fields in some heatings",
                 "de": "Bug behoben: Versteckte Felder in manchen Heizungen werden ignoriert"

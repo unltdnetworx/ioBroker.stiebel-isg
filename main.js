@@ -280,6 +280,7 @@ function getIsgValues(sidePath) {
                     let value = parseFloat(param);
                     let unit = param
                         .replace(/[ ]{0,2}/, "")
+                        .replace(/ /g,"")
                         .replace(value, "")
                         .replace(/([\.0][0]){1}?/, "");
                     
@@ -321,6 +322,8 @@ function createISGCommands (strGroup,valTag,valTagLang,valType,valUnit,valRole,v
             .replace(/[\u00dc]+/g,"UE");
     }
     
+    valUnit = valUnit.replace(/ /g,"");
+
     adapter.log.debug("strGroup: "+strGroup);
     adapter.setObjectNotExists(
         strGroup + "." + valTag, {
