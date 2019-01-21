@@ -7,7 +7,6 @@
 'use strict';
 
 const utils = require(__dirname + '/lib/utils');
-const adapter = new utils.Adapter('stiebel-isg');
 const querystring = require("querystring");
 let systemLanguage;
 let nameTranslation;
@@ -22,44 +21,53 @@ const statusPaths = ["/?s=2,0", "/?s=1,0"];
 const request = require('request');
 const cheerio = require('cheerio');
 
-adapter.on('ready', function () {    
-    adapter.getForeignObject('system.config', function (err, obj) {
-        if (err) {
-            adapter.log.error(err);
-            return;
-        } else if (obj) {
-            if (!obj.common.language) {
-                adapter.log.info("Language not set. English set therefore.");
-                nameTranslation = require(__dirname + '/admin/i18n/de/translations.json')
-            } else {
-                systemLanguage = obj.common.language;
-                nameTranslation = require(__dirname + '/admin/i18n/' + systemLanguage + '/translations.json')
+let adapter;
+function startAdapter(options) {
+    options = options || {};
+    Object.assign(options, {
+        name: 'stiebel-isg',
+        stateChange: function (id, state) {
+            let command = id.split('.').pop();
+            
+            // you can use the ack flag to detect if it is status (true) or command (false)
+            if (!state || state.ack) return;
+            setIsgCommands(command,state.val);
+        },
+        ready: function () {    
+            adapter.getForeignObject('system.config', function (err, obj) {
+                if (err) {
+                    adapter.log.error(err);
+                    return;
+                } else if (obj) {
+                    if (!obj.common.language) {
+                        adapter.log.info("Language not set. English set therefore.");
+                        nameTranslation = require(__dirname + '/admin/i18n/de/translations.json')
+                    } else {
+                        systemLanguage = obj.common.language;
+                        nameTranslation = require(__dirname + '/admin/i18n/' + systemLanguage + '/translations.json')
+                    }
+        
+                    setJar(request.jar());
+                    main();
+                }
+            });
+        },
+        unload: function (callback) {
+            try {
+                if (isgIntervall) clearInterval(isgIntervall);
+                if (isgCommandIntervall) clearInterval(isgCommandIntervall);
+                adapter.log.info('cleaned everything up...');
+                callback();
+            } catch (e) {
+                callback();
             }
-
-            setJar(request.jar());
-            main();
         }
     });
-});
-
-adapter.on('unload', function (callback) {
-    try {
-        if (isgIntervall) clearInterval(isgIntervall);
-        if (isgCommandIntervall) clearInterval(isgCommandIntervall);
-        adapter.log.info('cleaned everything up...');
-        callback();
-    } catch (e) {
-        callback();
-    }
-});
-
-adapter.on('stateChange', function (id, state) {
-    let command = id.split('.').pop();
+    adapter = new utils.Adapter(options);
     
-    // you can use the ack flag to detect if it is status (true) or command (false)
-    if (!state || state.ack) return;
-    setIsgCommands(command,state.val);
-});
+    return adapter;
+};
+
 
 function setJar(jarParam) {
     jar = jarParam;
@@ -587,4 +595,12 @@ function main() {
                 getIsgCommands(item);
             })
         }, (adapter.config.isgCommandIntervall * 1000));
+}
+
+// If started as allInOne/compact mode => return function to create instance
+if (module && module.parent) {
+    module.exports = startAdapter;
+} else {
+    // or start the instance directly
+    startAdapter();
 }
