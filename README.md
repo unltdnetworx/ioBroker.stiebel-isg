@@ -17,6 +17,9 @@ Help or hints are welcome.
 * stiebel-eltron/teclor internet service gateway (ISG)   
 
 ## Changelog
+### 1.3.1
+* reboot-option added
+
 ### 1.3.0
 * support for compact-mode added
 

@@ -14,5 +14,6 @@
   "info": ["Info"],
   "yes": ["ja"],
   "no": ["nein"],
-  "umlauts active": ["Umlaute in Objekten aktivieren. Achtung: Evtl. Probleme mit History-Adapter."]
+  "umlauts active": ["Umlaute in Objekten aktivieren. Achtung: Evtl. Probleme mit History-Adapter."],
+  "ISGReboot": ["Hardware Neustart"]
 }

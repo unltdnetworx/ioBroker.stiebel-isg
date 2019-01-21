@@ -31,6 +31,14 @@ function startAdapter(options) {
             
             // you can use the ack flag to detect if it is status (true) or command (false)
             if (!state || state.ack) return;
+
+            if (command == 'ISGReboot') {
+                adapter.log.info('ISG rebooting');
+                rebootISG();
+                //wait 1 minute for hardware-reboot
+                setTimeout(main, 60000);
+            }
+
             setIsgCommands(command,state.val);
         },
         ready: function () {    
@@ -562,6 +570,21 @@ function setIsgCommands(strKey, strValue) {
 }
 
 function main() {
+    adapter.setObjectNotExists(
+        "ISGReboot", {
+            type: 'state',
+            common: {
+                name: translateName("ISGReboot"),
+                type: 'boolean',
+                role: 'button',
+                read: true,
+                write: true
+            },
+            native: {}
+        },
+        adapter.subscribeStates('ISGReboot')
+    );
+    
     host = adapter.config.isgAddress;
     if(host.search(/http/i) == -1){
         host = "http://" + host;
@@ -595,6 +618,12 @@ function main() {
                 getIsgCommands(item);
             })
         }, (adapter.config.isgCommandIntervall * 1000));
+}
+
+function rebootISG(){
+    request("http://" + host + "/reboot.php", { json: true }, (err, res, body) => {
+        if (err) { return console.log(err); }
+    });
 }
 
 // If started as allInOne/compact mode => return function to create instance

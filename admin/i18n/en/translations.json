@@ -12,5 +12,6 @@
   "info": ["info"],
   "yes": ["yes"],
   "no": ["no"],
-  "umlauts active": ["Activate umlauts in objects. Warning: could cause problems in history-adapter."]
+  "umlauts active": ["Activate umlauts in objects. Warning: could cause problems in history-adapter."],
+  "ISGReboot": ["reboot hardware"]
 }
