@@ -314,8 +314,8 @@ function getIsgValues(sidePath) {
                     } else {
                         valueRole = 'value';
                     }
-                    
-                    if(key && value){
+
+                    if(key && value != null){
                         updateState (translateName("info") + "." + group,key,translateName(valueName),valType,unit,valueRole,value);
                     }
                 }); 
