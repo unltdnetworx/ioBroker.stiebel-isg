@@ -17,6 +17,9 @@ Help or hints are welcome.
 * stiebel-eltron/teclor internet service gateway (ISG)   
 
 ## Changelog
+### 1.4.0
+* expert-values can be pulled/written
+
 ### 1.3.2
 * bugfix: 0 is now recognized
 

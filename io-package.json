@@ -1,8 +1,12 @@
 {
     "common": {
         "name": "stiebel-isg",
-        "version": "1.3.2",
+        "version": "1.4.0",
         "news": {
+            "1.4.0": {
+                "en": "expert-values can be pulled/written",
+                "de": "Werte aus Expertenbereich können gelesen und geschrieben werden"
+            },
             "1.3.2": {
                 "en": "bugfix: 0 is now recognized",
                 "de": "Bugfix: 0 wird als Wert erkannt"
@@ -107,6 +111,8 @@
         "isgPassword": "",
         "isgAddress": "",
         "isgIntervall": 60,
-        "isgCommandIntervall": 3600
+        "isgCommandIntervall": 3600,
+        "isgUmlauts": "no",
+        "isgExpert": false
     }
 }

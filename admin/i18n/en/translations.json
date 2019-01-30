@@ -13,5 +13,6 @@
   "yes": ["yes"],
   "no": ["no"],
   "umlauts active": ["Activate umlauts in objects. Warning: could cause problems in history-adapter."],
-  "ISGReboot": ["reboot hardware"]
+  "ISGReboot": ["reboot hardware"],
+  "enable expert values": ["Werte aus Expertenbereich lesen/schreiben"]
 }

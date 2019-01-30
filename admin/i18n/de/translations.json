@@ -15,5 +15,6 @@
   "yes": ["ja"],
   "no": ["nein"],
   "umlauts active": ["Umlaute in Objekten aktivieren. Achtung: Evtl. Probleme mit History-Adapter."],
-  "ISGReboot": ["Hardware Neustart"]
+  "ISGReboot": ["Hardware Neustart"],
+  "enable expert values": ["Werte aus Expertenbereich lesen/schreiben"]
 }
