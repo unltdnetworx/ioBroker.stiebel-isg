@@ -2,6 +2,12 @@
 # ioBroker.stiebel-isg
 =================
 
+[![Build Status](https://api.travis-ci.org/unltdnetworx/ioBroker.stiebel-isg.svg?branch=master)](https://travis-ci.org/unltdnetworx/ioBroker.stiebel-isg)
+[![NPM version](https://img.shields.io/npm/v/iobroker.stiebel-isg.svg)](https://www.npmjs.com/package/iobroker.stiebel-isg)
+[![Downloads](https://img.shields.io/npm/dm/iobroker.stiebel-isg.svg)](https://www.npmjs.com/package/iobroker.stiebel-isg)
+
+[![NPM](https://nodei.co/npm/iobroker.stiebel-isg.png?downloads=true)](https://nodei.co/npm/iobroker.stiebel-isg/)
+
 This adapter is a ment to read values from stiebel-eltron/tecalor internet service gateways (ISG) and control the device.
 
 USE AT YOUR OWN RISK!!! ABSOLUTELY NO WARRANTY FOR DAMAGES, ETC.!!!
