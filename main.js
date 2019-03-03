@@ -6,7 +6,7 @@
 
 'use strict';
 
-const utils = require(__dirname + '/lib/utils');
+const utils = require('@iobroker/adapter-core');
 const querystring = require("querystring");
 let systemLanguage;
 let nameTranslation;
