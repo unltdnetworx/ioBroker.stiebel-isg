@@ -23,6 +23,9 @@ Help or hints are welcome.
 * stiebel-eltron/teclor internet service gateway (ISG)   
 
 ## Changelog
+### 1.4.1
+* Core Files/Testing Update and introduce adapter-core
+
 ### 1.4.0
 * expert-values can be pulled/written
 
@@ -78,7 +81,7 @@ Help or hints are welcome.
 ## License
 The MIT License (MIT)
 
-Copyright (c) 2018 Michael Schuster <development@unltd-networx.de>
+Copyright (c) 2018-2019 Michael Schuster <development@unltd-networx.de>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

@@ -1,8 +1,12 @@
 {
     "common": {
         "name": "stiebel-isg",
-        "version": "1.4.0",
+        "version": "1.4.1",
         "news": {
+            "1.4.1": {
+                "en": "Core Files/Testing Update and introduce adapter-core",
+                "de": "Adapter-Core implementiert"
+            },
             "1.4.0": {
                 "en": "expert-values can be pulled/written",
                 "de": "Werte aus Expertenbereich können gelesen und geschrieben werden"
