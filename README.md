@@ -1,5 +1,7 @@
 ![Logo](admin/stiebel-isg.png)
 # ioBroker.stiebel-isg
+![Number of Installations](http://iobroker.live/badges/stiebel-isg-installed.svg) ![Number of Installations](http://iobroker.live/badges/stiebel-isg-stable.svg)
+
 =================
 
 [![Build Status](https://api.travis-ci.org/unltdnetworx/ioBroker.stiebel-isg.svg?branch=master)](https://travis-ci.org/unltdnetworx/ioBroker.stiebel-isg)
