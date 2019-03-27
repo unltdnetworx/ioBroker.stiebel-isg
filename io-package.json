@@ -92,10 +92,6 @@
         "authors": [
             "Michael Schuster <development@unltd-networx.de>"
         ],
-        "docs": {
-            "en": "docs/en/admin.md",
-            "de": "docs/de/admin.md"
-        },
         "platform": "Javascript/Node.js",
         "mode": "daemon",
         "icon": "stiebel-isg.png",
