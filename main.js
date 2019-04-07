@@ -563,20 +563,19 @@ function setIsgCommands(strKey, strValue) {
     };
 
     //renew all settings after waitingtime of 10 Seconds. If more commands are sent.
-    var timeoutHandle = setTimeout(function(){
-        request(postOptions, function (error, response, content) {
-            if (!error && response.statusCode == 200) {
+    var timeoutHandle;
+    request(postOptions, function (error, response, content) {
+        if (!error && response.statusCode == 200) {
+            clearTimeout(timeoutHandle);
+            timeoutHandle = setTimeout(function(){
                 commandPaths.forEach(function(item){
                     getIsgCommands(item);
                 })
-            } else {
-                adapter.log.error(error);
-            }
-        });
-    },10000);
-    
-    clearTimeout(timeoutHandle);
-    timeoutHandle;
+            },10000);
+        } else {
+            adapter.log.error(error);
+        }
+    });
 }
 
 function main() {
