@@ -562,15 +562,21 @@ function setIsgCommands(strKey, strValue) {
         }
     };
 
-    request(postOptions, function (error, response, content) {
-        if (!error && response.statusCode == 200) {
-            commandPaths.forEach(function(item){
-                getIsgCommands(item);
-            })
-        } else {
-            adapter.log.error(error);
-        }
-    });
+    //renew all settings after waitingtime of 10 Seconds. If more commands are sent.
+    var timeoutHandle = setTimeout(function(){
+        request(postOptions, function (error, response, content) {
+            if (!error && response.statusCode == 200) {
+                commandPaths.forEach(function(item){
+                    getIsgCommands(item);
+                })
+            } else {
+                adapter.log.error(error);
+            }
+        });
+    },10000);
+    
+    clearTimeout(timeoutHandle);
+    timeoutHandle;
 }
 
 function main() {

@@ -1,8 +1,12 @@
 {
     "common": {
         "name": "stiebel-isg",
-        "version": "1.4.1",
+        "version": "1.4.2",
         "news": {
+            "1.4.2": {
+                "en": "Timeout of 10 seconds for pulling settings after multiple commands",
+                "de": "10 Sekunden Wartezeit für das Neuladen von Einstellungen eingefügt, zur Reduzierung der Auslastung des ISG bei vielen gleichzeitigen Befehlen"
+            },
             "1.4.1": {
                 "en": "Core Files/Testing Update and introduce adapter-core",
                 "de": "Adapter-Core implementiert"
