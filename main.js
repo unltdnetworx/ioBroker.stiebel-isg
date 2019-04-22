@@ -237,8 +237,9 @@ function getIsgStatus(sidePath) {
                     }
                 }); 
             })
-        } else {
+        } else if (error) {
             adapter.log.error(error);
+        } else if (response.statusCode !== 200) {
             adapter.log.error("statusCode: " + response.statusCode);
             adapter.log.error("statusText: " + response.statusText);
         }
@@ -330,8 +331,9 @@ function getIsgValues(sidePath) {
                     }
                 }); 
             })
-        } else {
+        } else if (error) {
             adapter.log.error(error);
+        } else if (response.statusCode !== 200) {
             adapter.log.error("statusCode: " + response.statusCode);
             adapter.log.error("statusText: " + response.statusText);
         }
@@ -540,8 +542,9 @@ function getIsgCommands(sidePath) {
                     updateState(translateName("settings") + "." + group + submenupath, idCommand, translateName(nameCommand), "number",unitCommand,"state",valValue);
                 }
             })
-        } else {
+        } else if (error) {
             adapter.log.error(error);
+        } else if (response.statusCode !== 200) {
             adapter.log.error("statusCode: " + response.statusCode);
             adapter.log.error("statusText: " + response.statusText);
         }
@@ -581,8 +584,9 @@ function setIsgCommands(strKey, strValue) {
                 commandPaths.forEach(function(item){
                     getIsgCommands(item);
                 })
-            } else {
+            } else if (error) {
                 adapter.log.error(error);
+            } else if (response.statusCode !== 200) {
                 adapter.log.error("statusCode: " + response.statusCode);
                 adapter.log.error("statusText: " + response.statusText);
             }
