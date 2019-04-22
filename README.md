@@ -25,6 +25,9 @@ Help or hints are welcome.
 * stiebel-eltron/tecalor internet service gateway (ISG)   
 
 ## Changelog
+### 1.4.4
+* bugfix for error handling
+
 ### 1.4.3
 * Timeout of 5 seconds for sending commands to gather multiple commands to reduce the load of the ISG
 * Timeout for pulling deleted
