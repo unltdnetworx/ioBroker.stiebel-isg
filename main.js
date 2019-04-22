@@ -1,10 +1,10 @@
+'use strict';
+
 /**
  *
  * stiebel-eltron/tecalor isg adapter
  *
  */
-
-'use strict';
 
 const utils = require('@iobroker/adapter-core');
 const querystring = require("querystring");
@@ -12,6 +12,8 @@ let systemLanguage;
 let nameTranslation;
 let isgIntervall;
 let isgCommandIntervall;
+let commands = [];
+let CommandTimeout
 var jar;
 let host;
 let commandPaths = ["/?s=0","/?s=4,0,0","/?s=4,0,1","/?s=4,0,2","/?s=4,0,3","/?s=4,0,4","/?s=4,0,5","/?s=4,1,0","/?s=4,1,1","/?s=4,2,0","/?s=4,2,1","/?s=4,2,2","/?s=4,2,4","/?s=4,2,6","/?s=4,2,3","/?s=4,2,5","/?s=4,2,7","/?s=4,3","/?s=4,3,0","/?s=4,3,1","/?s=4,3,2","/?s=4,3,3","/?s=4,3,4"];
@@ -45,6 +47,8 @@ function startAdapter(options) {
             adapter.getForeignObject('system.config', function (err, obj) {
                 if (err) {
                     adapter.log.error(err);
+                    adapter.log.error("statusCode: " + response.statusCode);
+                    adapter.log.error("statusText: " + response.statusText);
                     return;
                 } else if (obj) {
                     if (!obj.common.language) {
@@ -235,6 +239,8 @@ function getIsgStatus(sidePath) {
             })
         } else {
             adapter.log.error(error);
+            adapter.log.error("statusCode: " + response.statusCode);
+            adapter.log.error("statusText: " + response.statusText);
         }
     });
 }
@@ -326,6 +332,8 @@ function getIsgValues(sidePath) {
             })
         } else {
             adapter.log.error(error);
+            adapter.log.error("statusCode: " + response.statusCode);
+            adapter.log.error("statusText: " + response.statusText);
         }
     });
 }
@@ -534,20 +542,23 @@ function getIsgCommands(sidePath) {
             })
         } else {
             adapter.log.error(error);
+            adapter.log.error("statusCode: " + response.statusCode);
+            adapter.log.error("statusText: " + response.statusText);
         }
     });
 }
 
 function setIsgCommands(strKey, strValue) {    
-    const commands = JSON.stringify(
-        [{'name': strKey,
-          'value': strValue}]
-    )
+    let newCommand = 
+        {'name': strKey,
+          'value': strValue}
+
+    commands.push(newCommand);
     
     const payload = querystring.stringify({
         user: adapter.config.isgUser,
         pass: adapter.config.isgPassword,
-        data: commands
+        data: JSON.stringify(commands)
     });
 
     const postOptions = {
@@ -562,20 +573,22 @@ function setIsgCommands(strKey, strValue) {
         }
     };
 
-    //renew all settings after waitingtime of 10 Seconds. If more commands are sent.
-    var timeoutHandle;
-    request(postOptions, function (error, response, content) {
-        if (!error && response.statusCode == 200) {
-            clearTimeout(timeoutHandle);
-            timeoutHandle = setTimeout(function(){
+    //send all settings to device after waitingtime of 5 Seconds. If more commands are sent.
+    clearTimeout(CommandTimeout);
+    CommandTimeout = setTimeout(function(){
+        request(postOptions, function (error, response, content) {
+            if (!error && response.statusCode == 200) {
                 commandPaths.forEach(function(item){
                     getIsgCommands(item);
                 })
-            },10000);
-        } else {
-            adapter.log.error(error);
-        }
-    });
+            } else {
+                adapter.log.error(error);
+                adapter.log.error("statusCode: " + response.statusCode);
+                adapter.log.error("statusText: " + response.statusText);
+            }
+        });
+        commands = [];
+    },5000);
 }
 
 function main() {

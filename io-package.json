@@ -1,8 +1,12 @@
 {
     "common": {
         "name": "stiebel-isg",
-        "version": "1.4.2",
+        "version": "1.4.3",
         "news": {
+            "1.4.3": {
+                "en": "Timeout of 5 seconds for sending commands to gather multiple commands to reduce the load of the ISG",
+                "de": "5 Sekunden Wartezeit für das Senden von Einstellungen eingefügt um Befehle zu gesammelt zu senden, zur Reduzierung der Auslastung des ISG"
+            },
             "1.4.2": {
                 "en": "Timeout of 10 seconds for pulling settings after multiple commands",
                 "de": "10 Sekunden Wartezeit für das Neuladen von Einstellungen eingefügt, zur Reduzierung der Auslastung des ISG bei vielen gleichzeitigen Befehlen"
