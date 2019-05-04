@@ -34,62 +34,6 @@
             "1.3.0": {
                 "en": "support for compact-mode added",
                 "de": "Kompakt-Modus wird zukünftig unterstützt"
-            },
-            "1.2.4": {
-                "en": "bug repaired: unnecessary space characters in units removed",
-                "de": "Bug behoben: vereinzelte unnötige Leerzeichen in Einheiten entfernt"
-            },
-            "1.2.3": {
-                "en": "bug repaired: ignore hidden fields in some heatings",
-                "de": "Bug behoben: Versteckte Felder in manchen Heizungen werden ignoriert"
-            },
-            "1.2.2": {
-                "en": "additional values available, like filter-lifetime",
-                "de": "Weitere Werte werden ausgelesen, z.B. Filter-Laufzeit"
-            },
-            "1.2.1": {
-                "en": "according to a problem with the history-adapter, umlauts can now be deactivated",
-                "de": "Aufgrund eines Problems mit dem History-Adapter können Umlaute jetzt deaktiviert werden."
-            },
-            "1.2.0": {
-                "en": "status for photovoltaik and device included",
-                "de": "Statuswerte Photovoltaik und Gerätestatus inkludiert"
-            },
-            "1.1.1": {
-                "en": "bugfix for controls-menu",
-                "de": "Fehlerbehebung für Einstellungen-Menü"
-            },
-            "1.1.0": {
-                "en": "Energymanagment added (ISG plus required)",
-                "de": "Energymanagment hinzugefügt (ISG plus erforderlich)"
-            },
-            "1.0.3": {
-                "en": "bugfix in version number",
-                "de": "Bugfix in version"
-            },
-            "1.0.2": {
-                "en": "code cleanup",
-                "de": "Code aufgeräumt"
-            },
-            "1.0.1": {
-                "en": "added two new groups for controls, roomtemp 1 and 2",
-                "de": "Zwei neue Einstellungsgruppe hinzugefügt, Raumtemperatur HK1 und HK2"
-            },
-            "1.0.0": {
-                "en": "confirmed stable release",
-                "de": "bestätigte stabile Version"
-            },
-            "0.1.0": {
-                "en": "release candidate for stable, additional controls",
-                "de": "Release Kandidate für stabile Version, zusätzliche Einstellungen"
-            },
-            "0.0.1": {
-                "en": "initial adapter",
-                "de": "Initiale Version",
-                "ru": "Первоначальный адаптер",
-                "pt": "Versão inicial",
-                "fr": "Version initiale",
-                "nl": "Eerste release"
             }
         },
 		"title": "stiebel-isg",
