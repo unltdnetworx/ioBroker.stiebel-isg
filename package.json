@@ -1,6 +1,6 @@
 {
   "name": "iobroker.stiebel-isg",
-  "version": "1.4.4",
+  "version": "1.4.5",
   "description": "stiebel/tecalor internet service gateway",
   "author": {
     "name": "Michael Schuster",
@@ -29,7 +29,7 @@
     "url": "https://github.com/unltdnetworx/ioBroker.stiebel-isg"
   },
   "dependencies": {
-    "request": "^2.72.0",
+    "request": "^2.88.0",
     "cheerio": "^1.0.0-rc.2",
     "@iobroker/adapter-core": "^1.0.3"
   },

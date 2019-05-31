@@ -142,6 +142,7 @@ function updateState (strGroup,valTag,valTagLang,valType,valUnit,valRole,valValu
     }
     
     adapter.log.debug("strGroup: "+strGroup);
+
     adapter.setObjectNotExists(
         strGroup + "." + valTag, {
             type: 'state',
@@ -229,11 +230,21 @@ function getIsgStatus(sidePath) {
                     }
                     
                     let valType = typeof value;
+                    let valThisType = "state"
+                    
+                    if(valType !== null) {
+                        if(value == true) {
+                            valThisType = "boolean";
+                        } else {
+                            valThisType = "state";
+                        }
+                    }
+
                     let valueRole;
                     
                     if(value === true){
                         //adapter.log.error(value);
-                        updateState (translateName("info") + "." + group,key,translateName(valueName),"state","","indicator.state",value);
+                        updateState (translateName("info") + "." + group,key,translateName(valueName),valThisType,"","indicator.state",value);
                     }
                 }); 
             })
