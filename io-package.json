@@ -1,8 +1,12 @@
 {
     "common": {
         "name": "stiebel-isg",
-        "version": "1.4.5",
+        "version": "1.4.6",
         "news": {
+            "1.4.6": {
+                "en": "bugfix for some boolean-values",
+                "de": "Bugfix für wenige Boolean-Werte"
+            },
             "1.4.5": {
                 "en": "bugfix for false state for boolean-values",
                 "de": "Bugfix für Boolean-Werte"

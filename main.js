@@ -233,7 +233,7 @@ function getIsgStatus(sidePath) {
                     let valThisType = "state"
                     
                     if(valType !== null) {
-                        if(value == true) {
+                        if(value === true || value === false) {
                             valThisType = "boolean";
                         } else {
                             valThisType = "state";
@@ -241,9 +241,9 @@ function getIsgStatus(sidePath) {
                     }
 
                     let valueRole;
-                    
+
                     if(value === true){
-                        //adapter.log.error(value);
+                        //adapter.log.error (valueName + " : " + value + " (" + valThisType + ")");
                         updateState (translateName("info") + "." + group,key,translateName(valueName),valThisType,"","indicator.state",value);
                     }
                 }); 
@@ -337,7 +337,8 @@ function getIsgValues(sidePath) {
                         valueRole = 'value';
                     }
 
-                    if(key && value != null){
+                    if(key && value != null && !isNaN(value)){
+                        //adapter.log.error (valueName + " : " + value + " (" + valType + ")");
                         updateState (translateName("info") + "." + group,key,translateName(valueName),valType,unit,valueRole,value);
                     }
                 }); 
