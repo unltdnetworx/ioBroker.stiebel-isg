@@ -1,8 +1,12 @@
 {
     "common": {
         "name": "stiebel-isg",
-        "version": "1.4.6",
+        "version": "1.4.7",
         "news": {
+            "1.4.7": {
+                "en": "update due to security vulnerabilities in dependencies",
+                "de": "Update aufgrund von Sicherheitslücken in Abhängigkeiten"
+            },
             "1.4.6": {
                 "en": "bugfix for some boolean-values",
                 "de": "Bugfix für wenige Boolean-Werte"

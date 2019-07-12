@@ -28,6 +28,10 @@ Help or hints are welcome.
 
 ## Changelog
 
+### 1.4.7
+
+* update due to security vulnerabilities in dependencies
+
 ### 1.4.6
 
 * bugfix for some boolean-values
