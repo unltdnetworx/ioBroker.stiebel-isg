@@ -1,8 +1,12 @@
 {
     "common": {
         "name": "stiebel-isg",
-        "version": "1.4.8",
+        "version": "1.4.9",
         "news": {
+            "1.4.9": {
+                "en": "bug in rounding for info-values fixed",
+                "de": "Bug behoben: Rundungsfehler im Infobereich"
+            },
             "1.4.8": {
                 "en": "update due to security vulnerabilities in dependencies",
                 "de": "Update aufgrund von Sicherheitslücken in Abhängigkeiten"

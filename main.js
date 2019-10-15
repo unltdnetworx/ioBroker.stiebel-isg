@@ -447,6 +447,7 @@ function getIsgCommands(sidePath) {
                                             statesCommand += '"' + $(elem).attr('value') + '":"' + $(elem).next().text() + '"';
                                         } else {
                                             valCommand = $(elem).attr('value');
+                                            valCommand = parseFloat(valCommand.replace(',','.').replace(' ',''))
                                         } 
                                     }
                                 })  
@@ -470,6 +471,7 @@ function getIsgCommands(sidePath) {
 
                             if($(el).attr('checked') == 'checked'){
                                 valCommand = $(el).attr('value');
+                                valCommand = parseFloat(valCommand.replace(',','.').replace(' ',''))
                             }
                         })
                         statesCommand += "}";
@@ -495,6 +497,7 @@ function getIsgCommands(sidePath) {
                             $(ele).parent().find('input').each(function(j, el){
                                 if($(el).attr('checked') == 'checked'){
                                     valCommand = $(el).attr('value');
+                                    valCommand = parseFloat(valCommand.replace(',','.').replace(' ',''))
                                 }
                             })
                             if(submenu){
@@ -532,7 +535,7 @@ function getIsgCommands(sidePath) {
                                         submenupath = "";
                                         submenupath += "." + submenu[1];
                                     }
-                                    createISGCommands(translateName("settings") + "." + group + submenupath, idCommand[1], nameCommand, "number",unitCommand,"state",valCommand[1],"",minCommand[1],maxCommand[1]);
+                                    createISGCommands(translateName("settings") + "." + group + submenupath, idCommand[1], nameCommand, "number",unitCommand,"state",parseFloat(valCommand[1].replace(',','.').replace(' ','')),"",parseFloat(minCommand[1].replace(',','.').replace(' ','')),parseFloat(maxCommand[1].replace(',','.').replace(' ','')));
                                 }
                             }
                         } 
@@ -542,6 +545,7 @@ function getIsgCommands(sidePath) {
             //"Info_alone" Felder
             $('#werte').find('.info_alone').each(function(i, el) {
                 let valValue = $(el).text();
+                valValue = parseFloat(valValue.replace(',','.').replace(' ',''))
                 let nameCommand = $(el).parent().parent().find('h3').text();
                 let idCommand = $(el).parent().parent().attr('id');
                 let unitCommand = $(el).parent().parent().find('.append-1').text();
