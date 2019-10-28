@@ -413,13 +413,20 @@ function getIsgCommands(sidePath) {
         if (!error && response.statusCode == 200) {
             let $ = cheerio.load(content);
             
-            let group = $('#sub_nav')
-                .children()
-                .first()
-                .text()
-                .replace(/[\-\/]+/g,"_")
-                .replace(/[ \.]+/g,"")
-                .replace(/[\u00df]+/g,"SS");
+            try {
+                let group = $('#sub_nav')
+                    .children()
+                    .first()
+                    .text()
+                    .replace(/[\-\/]+/g,"_")
+                    .replace(/[ \.]+/g,"")
+                    .replace(/[\u00df]+/g,"SS");
+            }
+            catch (e) {
+                adapter.log.error("#sub_nav error:");
+                adapter.log.error(e);
+                let group = "Allgemein"
+            }
 
             let submenu = $.html().match(/#subnavactivename"\).html\('(.*?)'/);
             let submenupath = "";
