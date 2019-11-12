@@ -1,8 +1,12 @@
 {
     "common": {
         "name": "stiebel-isg",
-        "version": "1.4.9",
+        "version": "1.4.10",
         "news": {
+            "1.4.10": {
+                "en": "bugfix for group definitons",
+                "de": "Bug behoben: Fehler bei Erstellung einzelner Gruppen"
+            },
             "1.4.9": {
                 "en": "bug in rounding for info-values fixed",
                 "de": "Bug behoben: Rundungsfehler im Infobereich"

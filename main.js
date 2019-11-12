@@ -412,9 +412,10 @@ function getIsgCommands(sidePath) {
     request(options, function (error, response, content) {
         if (!error && response.statusCode == 200) {
             let $ = cheerio.load(content);
-            
+            let group;
+
             try {
-                let group = $('#sub_nav')
+                group = $('#sub_nav')
                     .children()
                     .first()
                     .text()
@@ -425,7 +426,7 @@ function getIsgCommands(sidePath) {
             catch (e) {
                 adapter.log.error("#sub_nav error:");
                 adapter.log.error(e);
-                let group = "Allgemein"
+                group = "Allgemein"
             }
 
             let submenu = $.html().match(/#subnavactivename"\).html\('(.*?)'/);
