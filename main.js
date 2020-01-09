@@ -546,7 +546,33 @@ function getIsgCommands(sidePath) {
                                     createISGCommands(translateName("settings") + "." + group + submenupath, idCommand[1], nameCommand, "number",unitCommand,"state",parseFloat(valCommand[1].replace(',','.').replace(' ','')),"",parseFloat(minCommand[1].replace(',','.').replace(' ','')),parseFloat(maxCommand[1].replace(',','.').replace(' ','')));
                                 }
                             }
-                        } 
+                        }  else if (parentsID.includes('chval')){
+                            scriptValues = $(el)
+                                .parent()
+                                .parent()    
+                                .next()
+                                .next()
+                                .next()
+                                .data;
+                            
+                            if(scriptValues){
+                                let nameCommand = $(el).parent().parent().parent().find('h3').text();
+                                
+                                let minCommand = scriptValues.match(/\['min'] = '(.*?)'/);
+                                let maxCommand = scriptValues.match(/\['max'] = '(.*?)'/);
+                                let valCommand = scriptValues.match(/\['val']='(.*?)'/);
+                                let idCommand = scriptValues.match(/\['id']='(.*?)'/);
+                                let unitCommand = $(el).parent().parent().parent().find('.append-1').text();
+                                
+                                if(idCommand){
+                                    if(submenu){
+                                        submenupath = "";
+                                        submenupath += "." + submenu[1];
+                                    }
+                                    createISGCommands(translateName("settings") + "." + group + submenupath, idCommand[1], nameCommand, "number",unitCommand,"state",parseFloat(valCommand[1].replace(',','.').replace(' ','')),"",parseFloat(minCommand[1].replace(',','.').replace(' ','')),parseFloat(maxCommand[1].replace(',','.').replace(' ','')));
+                                }
+                            }
+                        }
                     }
                 }
             })
