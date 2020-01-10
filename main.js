@@ -553,7 +553,7 @@ function getIsgCommands(sidePath) {
                                 .next()
                                 .next()
                                 .next()
-                                .data;
+                                .text();
                             
                             if(scriptValues){
                                 let nameCommand = $(el).parent().parent().parent().find('h3').text();
