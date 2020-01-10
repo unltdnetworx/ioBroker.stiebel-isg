@@ -1,6 +1,6 @@
 {
   "name": "iobroker.stiebel-isg",
-  "version": "1.4.10",
+  "version": "1.4.11",
   "description": "stiebel/tecalor internet service gateway",
   "author": {
     "name": "Michael Schuster",

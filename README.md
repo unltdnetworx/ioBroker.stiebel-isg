@@ -28,6 +28,10 @@ Help or hints are welcome.
 
 ## Changelog
 
+### 1.4.11
+
+* support for further heatingtyp WPL25A
+
 ### 1.4.10
 
 * bugfix for group definitons
