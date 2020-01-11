@@ -565,10 +565,21 @@ function getIsgCommands(sidePath) {
                                 let unitCommand = $(el).parent().parent().parent().find('.append-1').text();
                                 
                                 if(idCommand){
+                                    adapter.log.info("idCommand erreicht")
                                     if(submenu){
+                                        adapter.log.info("submenu erreicht")
                                         submenupath = "";
                                         submenupath += "." + submenu[1];
                                     }
+                                    adapter.log.info("1: " + translateName("settings"))
+                                    adapter.log.info("2: " + group)
+                                    adapter.log.info("3: " + submenupath)
+                                    adapter.log.info("4: " + idCommand[1])
+                                    adapter.log.info("5: " + nameCommand)
+                                    adapter.log.info("6: " + unitCommand)
+                                    adapter.log.info("7: " + parseFloat(valCommand[1].replace(',','.').replace(' ','')))
+                                    adapter.log.info("8: " + parseFloat(minCommand[1].replace(',','.').replace(' ','')))
+                                    adapter.log.info("9: " + parseFloat(maxCommand[1].replace(',','.').replace(' ','')))
                                     createISGCommands(translateName("settings") + "." + group + submenupath, idCommand[1], nameCommand, "number",unitCommand,"state",parseFloat(valCommand[1].replace(',','.').replace(' ','')),"",parseFloat(minCommand[1].replace(',','.').replace(' ','')),parseFloat(maxCommand[1].replace(',','.').replace(' ','')));
                                 }
                             }
