@@ -562,7 +562,7 @@ function getIsgCommands(sidePath) {
                                 let idCommand = scriptValues.match(/\['id']='(.*?)'/);
                                 let unitCommand = $(el).parent().parent().find('.append-1').text();
                                 
-                                if(idCommand){
+                                if(idCommand && !(idCommand.match(/aval/))){
                                     if(submenu){
                                         submenupath = "";
                                         submenupath += "." + submenu[1];
