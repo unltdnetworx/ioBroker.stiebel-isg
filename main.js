@@ -522,7 +522,7 @@ function getIsgCommands(sidePath) {
                             parentsID = "";
                         }
 
-                        if (parentsID.includes('chval')){
+                        if (parentsID.includes('chval') && !$(el).attr('name').match(/aval/)){
                             scriptValues = $(el)
                                 .parent()
                                 .parent()    
@@ -540,7 +540,7 @@ function getIsgCommands(sidePath) {
                                 let idCommand = scriptValues.match(/\['id']='(.*?)'/);
                                 let unitCommand = $(el).parent().parent().parent().find('.append-1').text();
                                 
-                                if(idCommand && !(idCommand.match(/aval/))){
+                                if(idCommand){
                                     if(submenu){
                                         submenupath = "";
                                         submenupath += "." + submenu[1];
@@ -548,7 +548,7 @@ function getIsgCommands(sidePath) {
                                     createISGCommands(translateName("settings") + "." + group + submenupath, idCommand[1], nameCommand, "number",unitCommand,"state",parseFloat(valCommand[1].replace(',','.').replace(' ','')),"",parseFloat(minCommand[1].replace(',','.').replace(' ','')),parseFloat(maxCommand[1].replace(',','.').replace(' ','')));
                                 }
                             }
-                        } else if($(el).attr('class') == "edit upndown firstElement") {
+                        } else if($(el).attr('class') == "edit upndown" && !$(el).attr('name').match(/aval/)) {
                             scriptValues = $(el)
                                 .parent()
                                 .text();
@@ -562,7 +562,7 @@ function getIsgCommands(sidePath) {
                                 let idCommand = scriptValues.match(/\['id']='(.*?)'/);
                                 let unitCommand = $(el).parent().parent().find('.append-1').text();
                                 
-                                if(idCommand && !(idCommand.match(/aval/))){
+                                if(idCommand){
                                     if(submenu){
                                         submenupath = "";
                                         submenupath += "." + submenu[1];
