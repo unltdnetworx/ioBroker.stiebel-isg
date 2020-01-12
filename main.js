@@ -496,7 +496,7 @@ function getIsgCommands(sidePath) {
                     
                     let scriptValues;
                     
-                    if (parentsClass == "current"){
+                    if (parentsClass == "current" || parentsClass == "black"){
                         $(el).parent().parent().find('div.black').each(function(j, ele){
                             let nameCommand = $(ele).parent().parent().parent().parent().find('h3').text();
                             let idCommand = $(ele).parent().find('input').attr('id');
@@ -522,7 +522,55 @@ function getIsgCommands(sidePath) {
                             parentsID = "";
                         }
 
-                        if (!(parentsID.includes('chval'))) {
+                        if (parentsID.includes('chval')){
+                            scriptValues = $(el)
+                                .parent()
+                                .parent()    
+                                .next()
+                                .next()
+                                .next()
+                                .text();
+                            
+                            if(scriptValues){
+                                let nameCommand = $(el).parent().parent().parent().find('h3').text();
+                                
+                                let minCommand = scriptValues.match(/\['min'] = '(.*?)'/);
+                                let maxCommand = scriptValues.match(/\['max'] = '(.*?)'/);
+                                let valCommand = scriptValues.match(/\['val']='(.*?)'/);
+                                let idCommand = scriptValues.match(/\['id']='(.*?)'/);
+                                let unitCommand = $(el).parent().parent().parent().find('.append-1').text();
+                                
+                                if(idCommand){
+                                    if(submenu){
+                                        submenupath = "";
+                                        submenupath += "." + submenu[1];
+                                    }
+                                    createISGCommands(translateName("settings") + "." + group + submenupath, idCommand[1], nameCommand, "number",unitCommand,"state",parseFloat(valCommand[1].replace(',','.').replace(' ','')),"",parseFloat(minCommand[1].replace(',','.').replace(' ','')),parseFloat(maxCommand[1].replace(',','.').replace(' ','')));
+                                }
+                            }
+                        } else if($(el).attr('class') == "edit upndown firstElement") {
+                            scriptValues = $(el)
+                                .parent()
+                                .text();
+
+                            if(scriptValues){
+                                let nameCommand = $(el).parent().parent().find('h3').text();
+                                
+                                let minCommand = scriptValues.match(/\['min'] = '(.*?)'/);
+                                let maxCommand = scriptValues.match(/\['max'] = '(.*?)'/);
+                                let valCommand = scriptValues.match(/\['val']='(.*?)'/);
+                                let idCommand = scriptValues.match(/\['id']='(.*?)'/);
+                                let unitCommand = $(el).parent().parent().find('.append-1').text();
+                                
+                                if(idCommand){
+                                    if(submenu){
+                                        submenupath = "";
+                                        submenupath += "." + submenu[1];
+                                    }
+                                    createISGCommands(translateName("settings") + "." + group + submenupath, idCommand[1], nameCommand, "number",unitCommand,"state",parseFloat(valCommand[1].replace(',','.').replace(' ','')),"",parseFloat(minCommand[1].replace(',','.').replace(' ','')),parseFloat(maxCommand[1].replace(',','.').replace(' ','')));
+                                }
+                            }
+                        } else if (!(parentsID.includes('chval'))) {
                             scriptValues = $(el)
                                 .next()
                                 .get()[0]
@@ -546,44 +594,7 @@ function getIsgCommands(sidePath) {
                                     createISGCommands(translateName("settings") + "." + group + submenupath, idCommand[1], nameCommand, "number",unitCommand,"state",parseFloat(valCommand[1].replace(',','.').replace(' ','')),"",parseFloat(minCommand[1].replace(',','.').replace(' ','')),parseFloat(maxCommand[1].replace(',','.').replace(' ','')));
                                 }
                             }
-                        }  else if (parentsID.includes('chval')){
-                            scriptValues = $(el)
-                                .parent()
-                                .parent()    
-                                .next()
-                                .next()
-                                .next()
-                                .text();
-                            
-                            if(scriptValues){
-                                let nameCommand = $(el).parent().parent().parent().find('h3').text();
-                                
-                                let minCommand = scriptValues.match(/\['min'] = '(.*?)'/);
-                                let maxCommand = scriptValues.match(/\['max'] = '(.*?)'/);
-                                let valCommand = scriptValues.match(/\['val']='(.*?)'/);
-                                let idCommand = scriptValues.match(/\['id']='(.*?)'/);
-                                let unitCommand = $(el).parent().parent().parent().find('.append-1').text();
-                                
-                                if(idCommand){
-                                    adapter.log.info("idCommand erreicht")
-                                    if(submenu){
-                                        adapter.log.info("submenu erreicht")
-                                        submenupath = "";
-                                        submenupath += "." + submenu[1];
-                                    }
-                                    adapter.log.info("1: " + translateName("settings"))
-                                    adapter.log.info("2: " + group)
-                                    adapter.log.info("3: " + submenupath)
-                                    adapter.log.info("4: " + idCommand[1])
-                                    adapter.log.info("5: " + nameCommand)
-                                    adapter.log.info("6: " + unitCommand)
-                                    adapter.log.info("7: " + parseFloat(valCommand[1].replace(',','.').replace(' ','')))
-                                    adapter.log.info("8: " + parseFloat(minCommand[1].replace(',','.').replace(' ','')))
-                                    adapter.log.info("9: " + parseFloat(maxCommand[1].replace(',','.').replace(' ','')))
-                                    createISGCommands(translateName("settings") + "." + group + submenupath, idCommand[1], nameCommand, "number",unitCommand,"state",parseFloat(valCommand[1].replace(',','.').replace(' ','')),"",parseFloat(minCommand[1].replace(',','.').replace(' ','')),parseFloat(maxCommand[1].replace(',','.').replace(' ','')));
-                                }
-                            }
-                        }
+                        } 
                     }
                 }
             })
