@@ -22,6 +22,8 @@ const statusPaths = ["/?s=2,0", "/?s=1,0"];
 
 const request = require('request');
 const cheerio = require('cheerio');
+const axios = require("axios");
+let axiosinstance;
 
 let adapter;
 function startAdapter(options) {
@@ -46,7 +48,7 @@ function startAdapter(options) {
         ready: function () {    
             adapter.getForeignObject('system.config', function (err, obj) {
                 if (err) {
-                    adapter.log.error(err);
+                    adapter.log.error("Error (startAdapter): " + err);
                     adapter.log.error("statusCode: " + response.statusCode);
                     adapter.log.error("statusText: " + response.statusText);
                     return;
@@ -163,192 +165,172 @@ function updateState (strGroup,valTag,valTagLang,valType,valUnit,valRole,valValu
     );
 }
 
-function getIsgStatus(sidePath) {
-    let strURL = host + sidePath;
-    
-    const payload = querystring.stringify({
-        user: adapter.config.isgUser,
-        pass: adapter.config.isgPassword
-    });
-    
-    const options = {
-        method: 'POST',
-        body: payload,
-        uri: strURL,
-        jar: getJar(),
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
-            'Connection': 'keep-alive'
-        }
-    };
-    
-    request(options, function (error, response, content) {
-        if (!error && response.statusCode == 200) {
-            let $ = cheerio.load(content);
-            
-            let submenu = $('#sub_nav')
-                .children()
-                .first()
-                .text()
-                .replace(/[\-\/]+/g,"_")
-                .replace(/[ \.]+/g,"")
-                .replace(/[\u00df]+/g,"SS");
-
-            $('.info').each((i, el) => {                
-                let group = $(el)
-                    .find(".round-top")    
-                    .text()
-                    .replace(/[ \-]+/g,"_")
-                    .replace(/[\.]+/g,"")
-                    .replace(/[\u00df]+/,"SS");
-                
-                group = submenu + "." + group
-                
-                $(el).find('tr').each(function() {
-                    let valueName = $(this)
-                        .find(".key")
-                        .text();
-                    
-                    let key = $(this)
-                        .find(".key")
-                        .text()
-                        .replace(/[ \-]+/g,"_")
-                        .replace(/[\.]+/g,"")
-                        .replace(/[\u00df]+/,"SS");
-
-                    //<img src="./pics/tec-symbol_an-8e8e8e.png" height="15">                   
-                    let param = $(this)
-                        .find(".value")
-                        .html();
-                    
-                    let value;
-
-                    if(param !== null){
-                        if (param.search('symbol_an') > -1){
-                            value = true;
-                        }
-                    }
-                    
-                    let valType = typeof value;
-                    let valThisType = "state"
-                    
-                    if(valType !== null) {
-                        if(value === true || value === false) {
-                            valThisType = "boolean";
-                        } else {
-                            valThisType = "state";
-                        }
-                    }
-
-                    let valueRole;
-
-                    if(value === true){
-                        //adapter.log.error (valueName + " : " + value + " (" + valThisType + ")");
-                        updateState (translateName("info") + "." + group,key,translateName(valueName),valThisType,"","indicator.state",value);
-                    }
-                }); 
-            })
-        } else if (error) {
-            adapter.log.error(error);
-        } else if (response.statusCode !== 200) {
-            adapter.log.error("statusCode: " + response.statusCode);
-            adapter.log.error("statusText: " + response.statusText);
-        }
-    });
+async function getHTML(sidePath) {       
+    const result = await axiosinstance.post(sidePath)
+                        /*
+                        .then(function (response) {
+                            adapter.log.info("Data: " + response.data);
+                            adapter.log.info("Status: " + response.status);
+                            adapter.log.info("StatusText: " + response.statusText);
+                            adapter.log.info("Headers: " + response.headers);
+                            adapter.log.info("Config: " + response.config);
+                        })
+                        */
+                        .catch(function (error) {
+                            if (error.response) {
+                            // The request was made and the server responded with a status code
+                            // that falls out of the range of 2xx
+                                adapter.log.error(error.response.data);
+                                adapter.log.error(error.response.status);
+                                adapter.log.error(error.response.headers);
+                            } else if (error.request) {
+                            // The request was made but no response was received
+                            // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
+                            // http.ClientRequest in node.js
+                                adapter.log.error("Error (Request) " + sidePath + ": " + error.request);
+                            } else {
+                            // Something happened in setting up the request that triggered an Error
+                                adapter.log.error('Error (Message)', error.message);
+                            }
+                            adapter.log.error("Error (Config): " + error.config);
+                        });
+    return result.data;
 }
 
-function getIsgValues(sidePath) {
-    let strURL = host + sidePath;
+async function getIsgStatus(sidePath) {
+    let $ = cheerio.load(await getHTML(sidePath));
     
-    const payload = querystring.stringify({
-        user: adapter.config.isgUser,
-        pass: adapter.config.isgPassword
-    });
+    let submenu = $('#sub_nav')
+        .children()
+        .first()
+        .text()
+        .replace(/[\-\/]+/g,"_")
+        .replace(/[ \.]+/g,"")
+        .replace(/[\u00df]+/g,"SS");
     
-    const options = {
-        method: 'POST',
-        body: payload,
-        uri: strURL,
-        jar: getJar(),
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
-            'Connection': 'keep-alive'
-        }
-    };
-    
-    request(options, function (error, response, content) {
-        if (!error && response.statusCode == 200) {
-            let $ = cheerio.load(content);
+    adapter.log.error("$: " + $);
+
+    $('.info').each((i, el) => {                
+        let group = $(el)
+            .find(".round-top")    
+            .text()
+            .replace(/[ \-]+/g,"_")
+            .replace(/[\.]+/g,"")
+            .replace(/[\u00df]+/,"SS");
+        
+        group = submenu + "." + group
+        
+        $(el).find('tr').each(function() {
+            let valueName = $(this)
+                .find(".key")
+                .text();
             
-            let submenu = $('#sub_nav')
-                .children()
-                .first()
+            let key = $(this)
+                .find(".key")
                 .text()
-                .replace(/[\-\/]+/g,"_")
-                .replace(/[ \.]+/g,"")
-                .replace(/[\u00df]+/g,"SS");
+                .replace(/[ \-]+/g,"_")
+                .replace(/[\.]+/g,"")
+                .replace(/[\u00df]+/,"SS");
 
-            $('.info').each((i, el) => {                
-                let group = $(el)
-                    .find(".round-top")    
-                    .text()
-                    .replace(/[ \-]+/g,"_")
-                    .replace(/[\.]+/g,"")
-                    .replace(/[\u00df]+/,"SS");
-                
-                group = submenu + "." + group
-                
-                $(el).find('tr').each(function() {
-                    let valueName = $(this)
-                        .find(".key")
-                        .text();
-                    
-                    let key = $(this)
-                        .find(".key")
-                        .text()
-                        .replace(/[ \-]+/g,"_")
-                        .replace(/[\.]+/g,"")
-                        .replace(/[\u00df]+/,"SS");
-                    
-                    let param = $(this)
-                        .find(".value")
-                        .text()
-                        .replace(/\,/,".");
-                    
-                    let value = parseFloat(param);
-                    let unit = param
-                        .replace(/[ ]{0,2}/, "")
-                        .replace(/ /g,"")
-                        .replace(value, "")
-                        .replace(/([\.0][0]){1}?/, "");
-                    
-                    let valType = typeof value;
-                    let valueRole;
-                    
-                    if (key.search('TEMP') > -1 || key.search('SOLLWERT_HK') == 0 || key.search('ISTWERT_HK') == 0){
-                        valueRole = 'value.temperature';
-                    } else if (key.search('DRUCK') > -1){
-                        valueRole = 'value.pressure';
-                    } else if (key.search('P_') == 0){
-                        valueRole = 'value.power.consumption';
-                    } else if (key.search('FEUCHTE') > -1){
-                        valueRole = 'value.humidity';
-                    } else {
-                        valueRole = 'value';
-                    }
+            //<img src="./pics/tec-symbol_an-8e8e8e.png" height="15">                   
+            let param = $(this)
+                .find(".value")
+                .html();
+            
+            let value;
 
-                    if(key && value != null && !isNaN(value)){
-                        //adapter.log.error (valueName + " : " + value + " (" + valType + ")");
-                        updateState (translateName("info") + "." + group,key,translateName(valueName),valType,unit,valueRole,value);
-                    }
-                }); 
-            })
-        } else if (error) {
-            adapter.log.error(error);
-        } else if (response.statusCode !== 200) {
-            adapter.log.error("statusCode: " + response.statusCode);
-            adapter.log.error("statusText: " + response.statusText);
-        }
+            if(param !== null){
+                if (param.search('symbol_an') > -1){
+                    value = true;
+                }
+            }
+            
+            let valType = typeof value;
+            let valThisType = "state"
+            
+            if(valType !== null) {
+                if(value === true || value === false) {
+                    valThisType = "boolean";
+                } else {
+                    valThisType = "state";
+                }
+            }
+
+            let valueRole;
+
+            if(value === true){
+                //adapter.log.error (valueName + " : " + value + " (" + valThisType + ")");
+                updateState (translateName("info") + "." + group,key,translateName(valueName),valThisType,"","indicator.state",value);
+            }
+        }); 
+    })
+}
+
+async function getIsgValues(sidePath) {
+    let $ = cheerio.load(await getHTML(sidePath));
+    
+    let submenu = $('#sub_nav')
+        .children()
+        .first()
+        .text()
+        .replace(/[\-\/]+/g,"_")
+        .replace(/[ \.]+/g,"")
+        .replace(/[\u00df]+/g,"SS");
+
+    $('.info').each((i, el) => {                
+        let group = $(el)
+            .find(".round-top")    
+            .text()
+            .replace(/[ \-]+/g,"_")
+            .replace(/[\.]+/g,"")
+            .replace(/[\u00df]+/,"SS");
+        
+        group = submenu + "." + group
+        
+        $(el).find('tr').each(function() {
+            let valueName = $(this)
+                .find(".key")
+                .text();
+            
+            let key = $(this)
+                .find(".key")
+                .text()
+                .replace(/[ \-]+/g,"_")
+                .replace(/[\.]+/g,"")
+                .replace(/[\u00df]+/,"SS");
+            
+            let param = $(this)
+                .find(".value")
+                .text()
+                .replace(/\,/,".");
+            
+            let value = parseFloat(param);
+            let unit = param
+                .replace(/[ ]{0,2}/, "")
+                .replace(/ /g,"")
+                .replace(value, "")
+                .replace(/([\.0][0]){1}?/, "");
+            
+            let valType = typeof value;
+            let valueRole;
+            
+            if (key.search('TEMP') > -1 || key.search('SOLLWERT_HK') == 0 || key.search('ISTWERT_HK') == 0){
+                valueRole = 'value.temperature';
+            } else if (key.search('DRUCK') > -1){
+                valueRole = 'value.pressure';
+            } else if (key.search('P_') == 0){
+                valueRole = 'value.power.consumption';
+            } else if (key.search('FEUCHTE') > -1){
+                valueRole = 'value.humidity';
+            } else {
+                valueRole = 'value';
+            }
+
+            if(key && value != null && !isNaN(value)){
+                //adapter.log.error (valueName + " : " + value + " (" + valType + ")");
+                updateState (translateName("info") + "." + group,key,translateName(valueName),valType,unit,valueRole,value);
+            }
+        }); 
     });
 }
 
@@ -390,217 +372,191 @@ function createISGCommands (strGroup,valTag,valTagLang,valType,valUnit,valRole,v
     );
 }
 
-function getIsgCommands(sidePath) {
-    let strURL = host + sidePath;
-    
-    const payload = querystring.stringify({
-        user: adapter.config.isgUser,
-        pass: adapter.config.isgPassword
-    });
-    
-    const options = {
-        method: 'POST',
-        body: payload,
-        uri: strURL,
-        jar: getJar(),
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
-            'Connection': 'keep-alive'
-        }
-    };
-    
-    request(options, function (error, response, content) {
-        if (!error && response.statusCode == 200) {
-            let $ = cheerio.load(content);
-            let group;
+async function getIsgCommands(sidePath) {
+    adapter.log.error(await getHTML(sidePath));
+    let $ = cheerio.load(await getHTML(sidePath));
 
-            try {
-                group = $('#sub_nav')
-                    .children()
-                    .first()
-                    .text()
-                    .replace(/[\-\/]+/g,"_")
-                    .replace(/[ \.]+/g,"")
-                    .replace(/[\u00df]+/g,"SS");
-            }
-            catch (e) {
-                adapter.log.error("#sub_nav error:");
-                adapter.log.error(e);
-                group = "Allgemein"
-            }
+    let group;
 
-            let submenu = $.html().match(/#subnavactivename"\).html\('(.*?)'/);
-            let submenupath = "";
-            
-            //Get values from script, because JavaScript isn't running with cheerio.
-            $('#werte').find("input").each(function(i, el) {
-                if(sidePath == "/?s=0"){
-                    let nameCommand;
-                    let valCommand;
-                    let idCommand;
-                    let statesCommand;
-                    nameCommand = $(el).parent().parent().find('h3').text();
-                    if(nameCommand == "Betriebsart"){                  
-                        let idStartCommand = $(el).attr('name');
-                        if(idStartCommand.match(/aval/)) {
-                            $(el).parent().parent().parent().parent().find('div.values').each(function(j, ele){
-                                statesCommand = '{';
-                                $(ele).find('input').each(function(k,elem){
-                                    idCommand = $(elem).attr('name');
-                                    if(!(idCommand.match(/aval/) || idCommand.match(/info/))) {
-                                        if(idCommand.match(/[0-9]s/)){
-                                            if(statesCommand !== "{"){
-                                                statesCommand += ",";
-                                            }
-                                            statesCommand += '"' + $(elem).attr('value') + '":"' + $(elem).next().text() + '"';
-                                        } else {
-                                            valCommand = $(elem).attr('value');
-                                            valCommand = parseFloat(valCommand.replace(',','.').replace(' ',''))
-                                        } 
+    try {
+        group = $('#sub_nav')
+            .children()
+            .first()
+            .text()
+            .replace(/[\-\/]+/g,"_")
+            .replace(/[ \.]+/g,"")
+            .replace(/[\u00df]+/g,"SS");
+    }
+    catch (e) {
+        adapter.log.error("#sub_nav error:" + e);
+        group = "Allgemein"
+    }
+
+    let submenu = $.html().match(/#subnavactivename"\).html\('(.*?)'/);
+    let submenupath = "";
+    
+    //Get values from script, because JavaScript isn't running with cheerio.
+    $('#werte').find("input").each(function(i, el) {
+        if(sidePath == "/?s=0"){
+            let nameCommand;
+            let valCommand;
+            let idCommand;
+            let statesCommand;
+            nameCommand = $(el).parent().parent().find('h3').text();
+            if(nameCommand == "Betriebsart"){                  
+                let idStartCommand = $(el).attr('name');
+                if(idStartCommand.match(/aval/)) {
+                    $(el).parent().parent().parent().parent().find('div.values').each(function(j, ele){
+                        statesCommand = '{';
+                        $(ele).find('input').each(function(k,elem){
+                            idCommand = $(elem).attr('name');
+                            if(!(idCommand.match(/aval/) || idCommand.match(/info/))) {
+                                if(idCommand.match(/[0-9]s/)){
+                                    if(statesCommand !== "{"){
+                                        statesCommand += ",";
                                     }
-                                })  
-                            })
-                            statesCommand += "}";
-                            createISGCommands(translateName("Start"), idCommand, nameCommand, "number","","level",valCommand,statesCommand,"","");
-                        }
-                    }
-                } else if($(this).parent().find('div.black').html()) {
-                    $(this).parent().find('div.black').each(function(j, ele){
-                        let nameCommand = $(ele).parent().parent().parent().find('h3').text();
-                        let idCommand = $(ele).find('input').attr('name');
-                        let valCommand;
-
-                        let statesCommand = '{'
-                        $(ele).find('input').each(function(j, el){
-                            if(statesCommand !== "{"){
-                                statesCommand += ",";
-                            }
-                            statesCommand += '"' + $(el).attr('value') + '":"' + $(el).attr('alt') + '"';
-
-                            if($(el).attr('checked') == 'checked'){
-                                valCommand = $(el).attr('value');
-                                valCommand = parseFloat(valCommand.replace(',','.').replace(' ',''))
-                            }
-                        })
-                        statesCommand += "}";
-                        if(submenu){
-                            submenupath = "";
-                            submenupath += "." + submenu[1];
-                        }
-                        createISGCommands(translateName("settings") + "." + group + submenupath, idCommand, nameCommand, "number","","level",valCommand,statesCommand,"","");
-                    })
-                } else {
-                    let parentsClass = $(el)
-                        .parent()
-                        .attr('class');
-                    
-                    let scriptValues;
-                    
-                    if (parentsClass == "current" || parentsClass == "black"){
-                        $(el).parent().parent().find('div.black').each(function(j, ele){
-                            let nameCommand = $(ele).parent().parent().parent().parent().find('h3').text();
-                            let idCommand = $(ele).parent().find('input').attr('id');
-                            let valCommand;
-
-                            $(ele).parent().find('input').each(function(j, el){
-                                if($(el).attr('checked') == 'checked'){
-                                    valCommand = $(el).attr('value');
+                                    statesCommand += '"' + $(elem).attr('value') + '":"' + $(elem).next().text() + '"';
+                                } else {
+                                    valCommand = $(elem).attr('value');
                                     valCommand = parseFloat(valCommand.replace(',','.').replace(' ',''))
-                                }
-                            })
-                            if(submenu){
-                                submenupath = "";
-                                submenupath += "." + submenu[1];
+                                } 
                             }
-                            if(!idCommand.includes('aval')){
-                                updateState(translateName("settings") + "." + group + submenupath, idCommand, translateName(nameCommand), "number", "","level",valCommand);
-                            }
-                        })
-                    } else {
-                        //ignore hidden fields (chval*)
-                        let parentsID = $(el).parent().attr('id');
-                        
-                        if(parentsID === undefined) {
-                            parentsID = "";
-                        }
-
-                        if (parentsID.includes('chval')){
-                            scriptValues = $(el)
-                                .parent()
-                                .parent()    
-                                .next()
-                                .next()
-                                .next()
-                                .text();
-                            
-                            if(scriptValues){
-                                let nameCommand = $(el).parent().parent().parent().find('h3').text();
-                                
-                                let minCommand = scriptValues.match(/\['min'] = '(.*?)'/);
-                                let maxCommand = scriptValues.match(/\['max'] = '(.*?)'/);
-                                let valCommand = scriptValues.match(/\['val']='(.*?)'/);
-                                let idCommand = scriptValues.match(/\['id']='(.*?)'/);
-                                let unitCommand = $(el).parent().parent().parent().find('.append-1').text();
-                                
-                                if(idCommand){
-                                    if(submenu){
-                                        submenupath = "";
-                                        submenupath += "." + submenu[1];
-                                    }
-                                    createISGCommands(translateName("settings") + "." + group + submenupath, idCommand[1], nameCommand, "number",unitCommand,"state",parseFloat(valCommand[1].replace(',','.').replace(' ','')),"",parseFloat(minCommand[1].replace(',','.').replace(' ','')),parseFloat(maxCommand[1].replace(',','.').replace(' ','')));
-                                }
-                            }
-                        } else if (!(parentsID.includes('chval'))) {
-                            scriptValues = $(el)
-                                .next()
-                                .get()[0]
-                                .children[0]
-                                .data;
-                            
-                            if(scriptValues){
-                                let nameCommand = $(el).parent().parent().find('h3').text();
-                                
-                                let minCommand = scriptValues.match(/\['min'] = '(.*?)'/);
-                                let maxCommand = scriptValues.match(/\['max'] = '(.*?)'/);
-                                let valCommand = scriptValues.match(/\['val']='(.*?)'/);
-                                let idCommand = scriptValues.match(/\['id']='(.*?)'/);
-                                let unitCommand = $(el).parent().parent().find('.append-1').text();
-                                
-                                if(idCommand){
-                                    if(submenu){
-                                        submenupath = "";
-                                        submenupath += "." + submenu[1];
-                                    }
-                                    createISGCommands(translateName("settings") + "." + group + submenupath, idCommand[1], nameCommand, "number",unitCommand,"state",parseFloat(valCommand[1].replace(',','.').replace(' ','')),"",parseFloat(minCommand[1].replace(',','.').replace(' ','')),parseFloat(maxCommand[1].replace(',','.').replace(' ','')));
-                                }
-                            }
-                        } 
-                    }
+                        })  
+                    })
+                    statesCommand += "}";
+                    createISGCommands(translateName("Start"), idCommand, nameCommand, "number","","level",valCommand,statesCommand,"","");
                 }
+            }
+        } else if($(this).parent().find('div.black').html()) {
+            $(this).parent().find('div.black').each(function(j, ele){
+                let nameCommand = $(ele).parent().parent().parent().find('h3').text();
+                let idCommand = $(ele).find('input').attr('name');
+                let valCommand;
+
+                let statesCommand = '{'
+                $(ele).find('input').each(function(j, el){
+                    if(statesCommand !== "{"){
+                        statesCommand += ",";
+                    }
+                    statesCommand += '"' + $(el).attr('value') + '":"' + $(el).attr('alt') + '"';
+
+                    if($(el).attr('checked') == 'checked'){
+                        valCommand = $(el).attr('value');
+                        valCommand = parseFloat(valCommand.replace(',','.').replace(' ',''))
+                    }
+                })
+                statesCommand += "}";
+                if(submenu){
+                    submenupath = "";
+                    submenupath += "." + submenu[1];
+                }
+                createISGCommands(translateName("settings") + "." + group + submenupath, idCommand, nameCommand, "number","","level",valCommand,statesCommand,"","");
             })
-            //"Info_alone" Felder
-            $('#werte').find('.info_alone').each(function(i, el) {
-                let valValue = $(el).text();
-                valValue = parseFloat(valValue.replace(',','.').replace(' ',''))
-                let nameCommand = $(el).parent().parent().find('h3').text();
-                let idCommand = $(el).parent().parent().attr('id');
-                let unitCommand = $(el).parent().parent().find('.append-1').text();
-                
-                if(valValue){
+        } else {
+            let parentsClass = $(el)
+                .parent()
+                .attr('class');
+            
+            let scriptValues;
+            
+            if (parentsClass == "current" || parentsClass == "black"){
+                $(el).parent().parent().find('div.black').each(function(j, ele){
+                    let nameCommand = $(ele).parent().parent().parent().parent().find('h3').text();
+                    let idCommand = $(ele).parent().find('input').attr('id');
+                    let valCommand;
+
+                    $(ele).parent().find('input').each(function(j, el){
+                        if($(el).attr('checked') == 'checked'){
+                            valCommand = $(el).attr('value');
+                            valCommand = parseFloat(valCommand.replace(',','.').replace(' ',''))
+                        }
+                    })
                     if(submenu){
                         submenupath = "";
                         submenupath += "." + submenu[1];
                     }
-                    updateState(translateName("settings") + "." + group + submenupath, idCommand, translateName(nameCommand), "number",unitCommand,"state",valValue);
+                    if(!idCommand.includes('aval')){
+                        updateState(translateName("settings") + "." + group + submenupath, idCommand, translateName(nameCommand), "number", "","level",valCommand);
+                    }
+                })
+            } else {
+                //ignore hidden fields (chval*)
+                let parentsID = $(el).parent().attr('id');
+                
+                if(parentsID === undefined) {
+                    parentsID = "";
                 }
-            })
-        } else if (error) {
-            adapter.log.error(error);
-        } else if (response.statusCode !== 200) {
-            adapter.log.error("statusCode: " + response.statusCode);
-            adapter.log.error("statusText: " + response.statusText);
+
+                if (parentsID.includes('chval')){
+                    scriptValues = $(el)
+                        .parent()
+                        .parent()    
+                        .next()
+                        .next()
+                        .next()
+                        .text();
+                    
+                    if(scriptValues){
+                        let nameCommand = $(el).parent().parent().parent().find('h3').text();
+                        
+                        let minCommand = scriptValues.match(/\['min'] = '(.*?)'/);
+                        let maxCommand = scriptValues.match(/\['max'] = '(.*?)'/);
+                        let valCommand = scriptValues.match(/\['val']='(.*?)'/);
+                        let idCommand = scriptValues.match(/\['id']='(.*?)'/);
+                        let unitCommand = $(el).parent().parent().parent().find('.append-1').text();
+                        
+                        if(idCommand){
+                            if(submenu){
+                                submenupath = "";
+                                submenupath += "." + submenu[1];
+                            }
+                            createISGCommands(translateName("settings") + "." + group + submenupath, idCommand[1], nameCommand, "number",unitCommand,"state",parseFloat(valCommand[1].replace(',','.').replace(' ','')),"",parseFloat(minCommand[1].replace(',','.').replace(' ','')),parseFloat(maxCommand[1].replace(',','.').replace(' ','')));
+                        }
+                    }
+                } else if (!(parentsID.includes('chval'))) {
+                    scriptValues = $(el)
+                        .next()
+                        .get()[0]
+                        .children[0]
+                        .data;
+                    
+                    if(scriptValues){
+                        let nameCommand = $(el).parent().parent().find('h3').text();
+                        
+                        let minCommand = scriptValues.match(/\['min'] = '(.*?)'/);
+                        let maxCommand = scriptValues.match(/\['max'] = '(.*?)'/);
+                        let valCommand = scriptValues.match(/\['val']='(.*?)'/);
+                        let idCommand = scriptValues.match(/\['id']='(.*?)'/);
+                        let unitCommand = $(el).parent().parent().find('.append-1').text();
+                        
+                        if(idCommand){
+                            if(submenu){
+                                submenupath = "";
+                                submenupath += "." + submenu[1];
+                            }
+                            createISGCommands(translateName("settings") + "." + group + submenupath, idCommand[1], nameCommand, "number",unitCommand,"state",parseFloat(valCommand[1].replace(',','.').replace(' ','')),"",parseFloat(minCommand[1].replace(',','.').replace(' ','')),parseFloat(maxCommand[1].replace(',','.').replace(' ','')));
+                        }
+                    }
+                } 
+            }
         }
-    });
+    })
+    //"Info_alone" Felder
+    await $('#werte').find('.info_alone').each(function(i, el) {
+        let valValue = $(el).text();
+        valValue = parseFloat(valValue.replace(',','.').replace(' ',''))
+        let nameCommand = $(el).parent().parent().find('h3').text();
+        let idCommand = $(el).parent().parent().attr('id');
+        let unitCommand = $(el).parent().parent().find('.append-1').text();
+        
+        if(valValue){
+            if(submenu){
+                submenupath = "";
+                submenupath += "." + submenu[1];
+            }
+            updateState(translateName("settings") + "." + group + submenupath, idCommand, translateName(nameCommand), "number",unitCommand,"state",valValue);
+        }
+    })
 }
 
 function setIsgCommands(strKey, strValue) {    
@@ -637,7 +593,7 @@ function setIsgCommands(strKey, strValue) {
                     getIsgCommands(item);
                 })
             } else if (error) {
-                adapter.log.error(error);
+                adapter.log.error("Error (CommandTimeout): " + error);
             } else if (response.statusCode !== 200) {
                 adapter.log.error("statusCode: " + response.statusCode);
                 adapter.log.error("statusText: " + response.statusText);
@@ -667,18 +623,45 @@ function main() {
     if(host.search(/http/i) == -1){
         host = "http://" + host;
     }
+
+    axiosinstance = axios.create({
+        method: 'post',
+        baseURL: host,
+        timeout: 60000,
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'Connection': 'keep-alive',
+            'Accept': '*/*'
+        },
+        //data: querystring.stringify({
+        //    user: adapter.config.isgUser,
+        //    pass: adapter.config.isgPassword
+        //}),
+        data: {
+            make: 'send',
+            user: 'TecalorSchuster',
+            pass: 'a8N2w3dJ9zTIh27'
+        },
+        make: 'send',
+        user: "TecalorSchuster",
+        pass: "a8N2w3dJ9zTIh27",
+        xsrfCookieName: 'XSRF-TOKEN',
+        xsrfHeaderName: 'X-XSRF-TOKEN',
+        withCredentials: true
+    });
+
     adapter.subscribeStates('*')
     
-    statusPaths.forEach(function(item){
-        getIsgStatus(item);
-    })
+    statusPaths.forEach(async function(item){
+        await getIsgStatus(item);
+    });
 
-    valuePaths.forEach(function(item){
-        getIsgValues(item);
-    })
+    valuePaths.forEach(async function(item){
+        await getIsgValues(item);
+    });
 
-    commandPaths.forEach(function(item){
-        getIsgCommands(item);
+    commandPaths.forEach(async function(item){
+        await getIsgCommands(item);
     })
 
     isgIntervall = setInterval(function(){
