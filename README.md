@@ -117,6 +117,11 @@ Help or hints are welcome.
 
 * Energymanagment added (ISG plus required)
 
+## Donate
+
+Kaffee spendieren/serve a coffee
+<https://paypal.me/unltdnetworx>
+
 ## License
 
 The MIT License (MIT)
