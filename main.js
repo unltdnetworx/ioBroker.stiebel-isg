@@ -486,8 +486,13 @@ async function getIsgCommands(sidePath) {
                     let parentsID = $(el).parent().attr('id');
                     
                     if(parentsID === undefined) {
-                        parentsID = "";
+                        parentsID = $(el).parent().parent().attr('id');
+                        if(parentsID === undefined) {
+                            parentsID = "";
+                        }
                     }
+
+                    adapter.log.error("ParentsID: " + parentsID);
 
                     if (parentsID.includes('chval')){
                         scriptValues = $(el)
