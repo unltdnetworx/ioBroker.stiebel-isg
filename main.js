@@ -351,7 +351,7 @@ function createISGCommands (strGroup,valTag,valTagLang,valType,valUnit,valRole,v
     
     valUnit = valUnit.replace(/ /g,"");
 
-    adapter.log.debug("strGroup: "+strGroup);
+    //adapter.log.debug("strGroup: "+strGroup);
     adapter.setObjectNotExists(
         strGroup + "." + valTag, {
             type: 'state',
@@ -493,9 +493,6 @@ async function getIsgCommands(sidePath) {
                     }
 
                     if (parentsID.includes('chval')){
-
-                        adapter.log.error("ParentsID: " + parentsID);
-
                         try {
                             scriptValues = $(el)
                             .parent()
@@ -530,7 +527,6 @@ async function getIsgCommands(sidePath) {
                             let unitCommand = $(el).parent().parent().parent().find('.append-1').text();
                             
                             if(idCommand){
-                                adapter.log.error("idCommand: " + idCommand);
                                 if(submenu){
                                     submenupath = "";
                                     submenupath += "." + submenu[1];
@@ -629,7 +625,7 @@ function setIsgCommands(strKey, strValue) {
                     getIsgCommands(item);
                 })
             } else if (error) {
-                adapter.log.error(error);
+                adapter.log.error("Error: " + error);
             } else if (response.statusCode !== 200) {
                 adapter.log.error("statusCode: " + response.statusCode);
                 adapter.log.error("statusText: " + response.statusText);
