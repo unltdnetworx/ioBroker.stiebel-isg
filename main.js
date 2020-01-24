@@ -492,16 +492,33 @@ async function getIsgCommands(sidePath) {
                         }
                     }
 
-                    adapter.log.error("ParentsID: " + parentsID);
-
                     if (parentsID.includes('chval')){
-                        scriptValues = $(el)
+
+                        adapter.log.error("ParentsID: " + parentsID);
+
+                        try {
+                            scriptValues = $(el)
                             .parent()
                             .parent()    
                             .next()
                             .next()
                             .next()
-                            .text();
+                            .get()[0]
+                            .children[0]
+                            .data
+                        }
+                        catch (e){
+                            try {
+                                scriptValues = $(el)
+                                .parent()
+                                .parent()    
+                                .next()
+                                .next()
+                                .next()
+                                .text();
+                            }
+                            catch (e){}
+                        }
                         
                         if(scriptValues){
                             let nameCommand = $(el).parent().parent().parent().find('h3').text();
