@@ -529,13 +529,13 @@ async function getIsgCommands(sidePath) {
                             .children[0]
                             .data;
                         }
-                        catch {
+                        catch (e){
                             try {
                                 scriptValues = $(el)
                                 .next()
                                 .text();
                             }
-                            catch{}
+                            catch (e){}
                         }
                         
                         if(scriptValues){
