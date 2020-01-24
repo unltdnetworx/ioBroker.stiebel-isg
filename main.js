@@ -522,11 +522,21 @@ async function getIsgCommands(sidePath) {
                             }
                         }
                     } else if (!(parentsID.includes('chval'))) {
-                        scriptValues = $(el)
+                        try {
+                            scriptValues = $(el)
                             .next()
                             .get()[0]
                             .children[0]
                             .data;
+                        }
+                        catch {
+                            try {
+                                scriptValues = $(el)
+                                .next()
+                                .text();
+                            }
+                            catch{}
+                        }
                         
                         if(scriptValues){
                             let nameCommand = $(el).parent().parent().find('h3').text();
@@ -538,7 +548,6 @@ async function getIsgCommands(sidePath) {
                             let unitCommand = $(el).parent().parent().find('.append-1').text();
                             
                             if(idCommand){
-                                adapter.log.error("idCommand2: " + idCommand);
                                 if(submenu){
                                     submenupath = "";
                                     submenupath += "." + submenu[1];
