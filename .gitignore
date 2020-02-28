@@ -2,5 +2,6 @@
 .idea
 node_modules
 nbproject
+iob_npm.done
 .vscode
 /.vscode
