@@ -17,7 +17,7 @@ let CommandTimeout
 var jar;
 let host;
 let commandPaths = ["/?s=0","/?s=4,0,0","/?s=4,0,1","/?s=4,0,2","/?s=4,0,3","/?s=4,0,4","/?s=4,0,5","/?s=4,1,0","/?s=4,1,1","/?s=4,2,0","/?s=4,2,1","/?s=4,2,2","/?s=4,2,4","/?s=4,2,6","/?s=4,2,3","/?s=4,2,5","/?s=4,2,7","/?s=4,3","/?s=4,3,0","/?s=4,3,1","/?s=4,3,2","/?s=4,3,3","/?s=4,3,4"];
-const valuePaths = ["/?s=1,0","/?s=1,1","/?s=1,2","/?s=2,3"];
+const valuePaths = ["/?s=1,0","/?s=1,1","/?s=1,2","/?s=2,3","/?s=2,13"];
 const statusPaths = ["/?s=2,0", "/?s=1,0"];
 
 const request = require('request');
@@ -399,6 +399,51 @@ async function getIsgCommands(sidePath) {
         let submenu = $.html().match(/#subnavactivename"\).html\('(.*?)'/);
         let submenupath = "";
         
+        //Infografiken Startseite
+        if(sidePath == "/?s=0"){
+            let scriptValues;
+            let group = "ANLAGE.STATISTIK"
+            try {
+                scriptValues = $('#buehne').next().next().next().get()[0].children[0].data;
+            } catch (e){}
+            if(scriptValues){
+                let regexp = /charts\[(\d)\]\['([\w]*)'\]\s*= [\[]{1}(.*?)\];{1}/gm;
+                let graphsValues;
+                do {
+                    graphsValues = regexp.exec(scriptValues);
+                    if (graphsValues) {
+                        let tabs = $('#tab' + graphsValues[1]).find('h3').text().split("in ");
+                        let valueName = tabs[0];
+                        let graphUnit = tabs[1];
+                        let valThisType = 'number';
+                        let values = graphsValues[3].substr(1,graphsValues[3].length-2);
+                        values = values.split("],[")
+
+                        values.forEach(function(item){
+                            let valueact = item.split(",");
+                            let key = valueName + "_" + graphsValues[2];
+                            let value = valueact[1];
+
+                            let valueRole;
+
+                            if (key.search('temperatur') > -1){
+                                valueRole = 'value.temperature';
+                            } else if (key.search('energie') > -1){
+                                valueRole = 'value.power.consumption';
+                            } else {
+                                valueRole = 'indicator.state';
+                            }
+
+
+
+                            updateState (translateName("info") + "." + group + "." + valueName.toLocaleUpperCase() + "." + valueact[0].slice(1,valueact[0].length-1).toLocaleUpperCase(),key.toLocaleUpperCase(),valueName,valThisType,graphUnit,valueRole,value);
+                        })
+                    }
+                }
+                while(graphsValues)
+            } 
+        }
+
         //Get values from script, because JavaScript isn't running with cheerio.
         $('#werte').find("input").each(function(i, el) {
             if(sidePath == "/?s=0"){
