@@ -404,8 +404,13 @@ async function getIsgCommands(sidePath) {
             let scriptValues;
             let group = "ANLAGE.STATISTIK"
             try {
-                scriptValues = $('#buehne').next().next().next().get()[0].children[0].data;
-            } catch (e){}
+                scriptValues = $('#buehne').next().next().get()[0].children[0].data;
+            } catch (e){
+                try {
+                    scriptValues = $('#buehne').next().next().next().get()[0].children[0].data;
+                } catch (e){
+                }
+            }
             if(scriptValues){
                 let regexp = /charts\[(\d)\]\['([\w]*)'\]\s*= [\[]{1}(.*?)\];{1}/gm;
                 let graphsValues;
