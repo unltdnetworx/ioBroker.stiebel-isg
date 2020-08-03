@@ -259,7 +259,6 @@ async function getIsgStatus(sidePath) {
                 let valueRole;
 
                 if(value === true){
-                    //adapter.log.error (valueName + " : " + value + " (" + valThisType + ")");
                     updateState (translateName("info") + "." + group,key,translateName(valueName),valThisType,"","indicator.state",value);
                 }
             }); 
@@ -329,7 +328,6 @@ async function getIsgValues(sidePath) {
                 }
 
                 if(key && value != null && !isNaN(value)){
-                    //adapter.log.error (valueName + " : " + value + " (" + valType + ")");
                     updateState (translateName("info") + "." + group,key,translateName(valueName),valType,unit,valueRole,value);
                 }
             }); 
@@ -351,7 +349,6 @@ function createISGCommands (strGroup,valTag,valTagLang,valType,valUnit,valRole,v
     
     valUnit = valUnit.replace(/ /g,"");
 
-    //adapter.log.debug("strGroup: "+strGroup);
     adapter.setObjectNotExists(
         strGroup + "." + valTag, {
             type: 'state',
@@ -424,6 +421,8 @@ async function getIsgCommands(sidePath) {
                         let values = graphsValues[3].substr(1,graphsValues[3].length-2);
                         values = values.split("],[")
 
+                        let prevValue;
+
                         values.forEach(function(item){
                             let valueact = item.split(",");
                             let key = valueName + "_" + graphsValues[2];
@@ -439,7 +438,10 @@ async function getIsgCommands(sidePath) {
                                 valueRole = 'indicator.state';
                             }
 
-
+                            if (prevValue !== valueact[0]){
+                                updateState (translateName("info") + "." + group + "." + valueName.toLocaleUpperCase() + ".LATEST_VALUE",key.toLocaleUpperCase(),valueName,valThisType,graphUnit,valueRole,value);
+                            }
+                            prevValue = valueact[0];
 
                             updateState (translateName("info") + "." + group + "." + valueName.toLocaleUpperCase() + "." + valueact[0].slice(1,valueact[0].length-1).toLocaleUpperCase(),key.toLocaleUpperCase(),valueName,valThisType,graphUnit,valueRole,value);
                         })

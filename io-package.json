@@ -1,8 +1,12 @@
 {
     "common": {
         "name": "stiebel-isg",
-        "version": "1.5.1",
+        "version": "1.5.2",
         "news": {
+            "1.5.2": {
+                "en": "latest_value added in statistics for database",
+                "de": "latest_value in Statistik hinzugefügt für Datenbanken"
+            },
             "1.5.1": {
                 "en": "new adapter testing and security update",
                 "de": "neue Version von Adapter testing und Sicherheits-Updates"
@@ -30,26 +34,6 @@
             "1.4.7": {
                 "en": "update due to security vulnerabilities in dependencies",
                 "de": "Update aufgrund von Sicherheitslücken in Abhängigkeiten"
-            },
-            "1.4.6": {
-                "en": "bugfix for some boolean-values",
-                "de": "Bugfix für wenige Boolean-Werte"
-            },
-            "1.4.5": {
-                "en": "bugfix for false state for boolean-values",
-                "de": "Bugfix für Boolean-Werte"
-            },
-            "1.4.4": {
-                "en": "bugfix for error handling",
-                "de": "Bugfix in der Fehlerbehandlung"
-            },
-            "1.4.3": {
-                "en": "Timeout of 5 seconds for sending commands to gather multiple commands to reduce the load of the ISG",
-                "de": "5 Sekunden Wartezeit für das Senden von Einstellungen eingefügt um Befehle zu gesammelt zu senden, zur Reduzierung der Auslastung des ISG"
-            },
-            "1.4.2": {
-                "en": "Timeout of 10 seconds for pulling settings after multiple commands",
-                "de": "10 Sekunden Wartezeit für das Neuladen von Einstellungen eingefügt, zur Reduzierung der Auslastung des ISG bei vielen gleichzeitigen Befehlen"
             }
         },
 		"title": "stiebel-isg",
