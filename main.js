@@ -124,7 +124,7 @@ function updateState (strGroup,valTag,valTagLang,valType,valUnit,valRole,valValu
     
     let ValueExpire = null;
 
-    if(strGroup.startsWith(translateName("settings"))){
+    if(strGroup.startsWith(translateName("settings")) || valTag == "ANLAGE.STATISTIK"){
         ValueExpire = (adapter.config.isgCommandIntervall*2);
     } else {
         ValueExpire = (adapter.config.isgIntervall*2);

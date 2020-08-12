@@ -1,8 +1,12 @@
 {
     "common": {
         "name": "stiebel-isg",
-        "version": "1.5.2",
+        "version": "1.5.3",
         "news": {
+            "1.5.3": {
+                "en": "bugfix in latest_value in statistics for database",
+                "de": "Fehlerbehebung für latest_value in Statistik für Datenbanken"
+            },
             "1.5.2": {
                 "en": "latest_value added in statistics for database",
                 "de": "latest_value in Statistik hinzugefügt für Datenbanken"
