@@ -347,7 +347,7 @@ function createISGCommands (strGroup,valTag,valTagLang,valType,valUnit,valRole,v
             .replace(/[\u00dc]+/g,"UE");
     }
     
-    valUnit = valUnit.replace(/ /g,"");
+    valUnit = valUnit.replace(/ +0+/g,"");
 
     adapter.setObjectNotExists(
         strGroup + "." + valTag, {
