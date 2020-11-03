@@ -310,7 +310,8 @@ async function getIsgValues(sidePath) {
                     .replace(/[ ]{0,2}/, "")
                     .replace(/ /g,"")
                     .replace(value, "")
-                    .replace(/([\.0][0]){1}?/, "");
+                    .replace(/([\.0][0]){1}?/, "")
+                    .replace(/^0+/, "");
                 
                 let valType = typeof value;
                 let valueRole;
