@@ -16,9 +16,9 @@ let commands = [];
 let CommandTimeout
 var jar;
 let host;
-let commandPaths = ["/?s=0","/?s=4,0,0","/?s=4,0,1","/?s=4,0,2","/?s=4,0,3","/?s=4,0,4","/?s=4,0,5","/?s=4,1,0","/?s=4,1,1","/?s=4,2,0","/?s=4,2,1","/?s=4,2,2","/?s=4,2,4","/?s=4,2,6","/?s=4,2,3","/?s=4,2,5","/?s=4,2,7","/?s=4,3","/?s=4,3,0","/?s=4,3,1","/?s=4,3,2","/?s=4,3,3","/?s=4,3,4"];
-const valuePaths = ["/?s=1,0","/?s=1,1","/?s=1,2","/?s=2,3","/?s=2,13"];
-const statusPaths = ["/?s=2,0", "/?s=1,0"];
+let commandPaths = [];
+let valuePaths = [];
+let statusPaths = [];
 
 const request = require('request');
 const cheerio = require('cheerio');
@@ -64,8 +64,12 @@ function startAdapter(options) {
                 }
             });
 
+            commandPaths = adapter.config.isgCommandPaths.split(";");
+            valuePaths= adapter.config.isgValuePaths.split(";");
+            statusPaths = adapter.config.isgStatusPaths.split(";");
+
             if(adapter.config.isgExpert === true) {
-                commandPaths.push("/?s=4,9,0","/?s=4,9,1","/?s=4,9,2","/?s=4,9,3","/?s=4,9,4","/?s=4,9,5","/?s=4,7","/?s=4,7,1","/?s=4,7,2","/?s=4,7,3","/?s=4,7,4","/?s=4,7,5","/?s=4,7,6","/?s=4,7,7","/?s=4,7,8")
+                commandPaths.push(adapter.config.isgExpertPaths.split(";"))
             }
         },
         unload: function (callback) {
@@ -164,7 +168,7 @@ function updateState (strGroup,valTag,valTagLang,valType,valUnit,valRole,valValu
 }
 
 function getHTML(sidePath) {
-    let strURL = host + sidePath;
+    let strURL = host + "/?s=" + sidePath;
     
     const payload = querystring.stringify({
         user: adapter.config.isgUser,
@@ -398,7 +402,7 @@ async function getIsgCommands(sidePath) {
         let submenupath = "";
         
         //Infografiken Startseite
-        if(sidePath == "/?s=0"){
+        if(sidePath == "0"){
             let scriptValues;
             let group = "ANLAGE.STATISTIK"
             try {
@@ -454,7 +458,7 @@ async function getIsgCommands(sidePath) {
 
         //Get values from script, because JavaScript isn't running with cheerio.
         $('#werte').find("input").each(function(i, el) {
-            if(sidePath == "/?s=0"){
+            if(sidePath == "0"){
                 let nameCommand;
                 let valCommand;
                 let idCommand;

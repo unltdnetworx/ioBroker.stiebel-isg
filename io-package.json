@@ -1,8 +1,12 @@
 {
     "common": {
         "name": "stiebel-isg",
-        "version": "1.5.3",
+        "version": "1.6.0",
         "news": {
+            "1.6.0": {
+                "en": "isg-sites to read values from, can now be select by the user",
+                "de": "ISG-Seiten die ausgelesen werden, können nun vom User gewählt werden"
+            },
             "1.5.3": {
                 "en": "bugfix in latest_value in statistics for database",
                 "de": "Fehlerbehebung für latest_value in Statistik für Datenbanken"
@@ -73,6 +77,10 @@
         "isgIntervall": 60,
         "isgCommandIntervall": 3600,
         "isgUmlauts": "no",
-        "isgExpert": false
+        "isgExpert": false,
+        "isgCommandPaths": "0;4,0,0;4,0,1;4,0,2;4,0,3;4,0,4;4,0,5;4,1,0;4,1,1;4,2,0;4,2,1;4,2,2;4,2,4;4,2,6;4,2,3;4,2,5;4,2,7;4,3;4,3,0;4,3,1;4,3,2;4,3,3;4,3,4",
+        "isgValuePaths": "1,0;1,1;1,2;2,3;2,13",
+        "isgStatusPaths": "1,0;2,0",
+        "isgExpertPaths": "4,9,0;4,9,1;4,9,2;4,9,3;4,9,4;4,9,5;4,7;4,7,1;4,7,2;4,7,3;4,7,4;4,7,5;4,7,6;4,7,7;4,7,8"
     }
 }

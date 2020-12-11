@@ -69,49 +69,79 @@
     <!-- you have to put your config page in a div with id adapter-container -->
     <div class="m adapter-container">
         <div class="row">
-            <!-- Forms are the standard way to receive user inputted data.
-         Learn more http://materializecss.com/forms.html-->
-            <div class="row">
-                <div class="input-field col s6">
-                    <img src="stiebel-isg.png" class="logo">
+            <div class="col s12">
+                <ul class="tabs">
+                    <li class="tab col s2"><a href="#tab-main" class="translate active">Main settings</a></li>
+                    <li class="tab col s2 le-settings"><a href="#tab-urls" class="translate">URLs</a></li>
+                </ul>
+            </div>
+            <div id="tab-main" class="col s12 page">
+                <div class="row">
+                    <div class="input-field col s6">
+                        <img src="stiebel-isg.png" class="logo">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12 m8">
+                        <input class="value" id="isgAddress" type="text">
+                        <label for="isgAddress">IP address or domain</label>
+                        <span class="translate">IP address or domain of the isg</span>
+                    </div>
+                    <div class="input-field col s12 m8">
+                        <input class="value" id="isgUser" type="text">
+                        <label for="isgUser">username</label>
+                        <span class="translate">username for the isg</span>
+                    </div>
+                    <div class="input-field col s12 m8">
+                        <input class="value" id="isgPassword" type="password">
+                        <label for="isgPassword">isg password</label>
+                        <span class="translate">password for the isg</span>
+                    </div>
+                    <div class="input-field col s12 m8">
+                        <select class="value" id="isgUmlauts">
+                            <option value="yes" class="translate" selected>yes</option>
+                            <option value="no" class="translate">no</option>
+                        </select>
+                        <label for="isgUmlauts" class="translate">umlauts active</label>
+                    </div>
+                    <div class="col s12 m8 input-field">
+                        <input type="checkbox" class="value" id="isgExpert" />
+                        <label for="isgExpert" class="translate">enable expert values</label>
+                    </div>
+                    <div class="input-field col s12 m8">
+                        <input class="value" id="isgIntervall" type="text">
+                        <label for="isgIntervall">intervall</label>
+                        <span class="translate">intervall for values to pull</span>
+                    </div>
+                    <div class="input-field col s12 m8">
+                        <input class="value" id="isgCommandIntervall" type="text">
+                        <label for="isgCommandIntervall">intervall</label>
+                        <span class="translate">intervall for commands to pull</span>
+                    </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="input-field col s12 m8">
-                    <input class="value" id="isgAddress" type="text">
-                    <label for="isgAddress">IP address or domain</label>
-                    <span class="translate">IP address or domain of the isg</span>
-                </div>
-                <div class="input-field col s12 m8">
-                    <input class="value" id="isgUser" type="text">
-                    <label for="isgUser">username</label>
-                    <span class="translate">username for the isg</span>
-                </div>
-                <div class="input-field col s12 m8">
-                    <input class="value" id="isgPassword" type="password">
-                    <label for="isgPassword">isg password</label>
-                    <span class="translate">password for the isg</span>
-                </div>
-                <div class="input-field col s12 m8">
-                    <select class="value" id="isgUmlauts">
-                        <option value="yes" class="translate" selected>yes</option>
-                        <option value="no" class="translate">no</option>
-                    </select>
-                    <label for="isgUmlauts" class="translate">umlauts active</label>
-                </div>
-                <div class="col s12 m8 input-field">
-                    <input type="checkbox" class="value" id="isgExpert" />
-                    <label for="isgExpert" class="translate">enable expert values</label>
-                </div>
-                <div class="input-field col s12 m8">
-                    <input class="value" id="isgIntervall" type="text">
-                    <label for="isgIntervall">intervall</label>
-                    <span class="translate">intervall for values to pull</span>
-                </div>
-                <div class="input-field col s12 m8">
-                    <input class="value" id="isgCommandIntervall" type="text">
-                    <label for="isgCommandIntervall">intervall</label>
-                    <span class="translate">intervall for commands to pull</span>
+            <div id="tab-urls" class="col s12 page">
+                <div class="row">
+                    <div class="input-field col s12 m8">
+                        <input class="value" id="isgCommandPaths" type="text">
+                        <label for="isgCommandPaths">command paths</label>
+                        <span class="translate">ending of urls behind "/?s=" of isg-pages for settings, separated by ";"</span>
+                    </div>
+                    <div class="input-field col s12 m8">
+                        <input class="value" id="isgValuePaths" type="text">
+                        <label for="isgValuePaths">value paths</label>
+                        <span class="translate">ending of urls behind "/?s=" of isg-pages for values, separated by ";"</span>
+                    </div>
+                    <div class="input-field col s12 m8">
+                        <input class="value" id="isgStatusPaths" type="text">
+                        <label for="isgStatusPaths">status paths</label>
+                        <span class="translate">ending of urls behind "/?s=" of isg-pages for status, separated by ";"</span>
+                    </div>
+                    <div class="input-field col s12 m8">
+                        <input class="value" id="isgExpertPaths" type="text">
+                        <label for="isgExpertPaths">expert paths</label>
+                        <span class="translate">ending of urls behind "/?s=" of isg-pages for expert values, separated by ";"</span>
+                    </div>
                 </div>
             </div>
         </div>
