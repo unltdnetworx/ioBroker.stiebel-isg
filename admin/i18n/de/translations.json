@@ -1,0 +1,20 @@
+{
+  "IP address or domain of the isg": ["IP-Adresse oder Domain des Internet Service Gateway"],
+  "username for the isg": ["Benutzername des Internet Service Gateway"],
+  "password for the isg": ["Passwort des Internet Service Gateway"],
+  "IP address": ["IP Adresse"],
+  "username": ["Benutzername"],
+  "password": ["Passwort"],
+  "intervall for values to pull": ["Intervall zur Abholung neuer Werte aus dem ISG"],
+  "intervall for commands to pull": ["Intervall zur Abholung neuer Einstellungswerte aus dem ISG (Änderungen seltener)"],
+  "isg password": ["Passwort ISG"],
+  "settings": ["Einstellungen"],
+  "AUSSENTEMPERATUR": ["Aussentemperatur"],
+  "STUFE-TAG": ["Lüftungsstufe Tag", "val82"],
+  "info": ["Info"],
+  "yes": ["ja"],
+  "no": ["nein"],
+  "umlauts active": ["Umlaute in Objekten aktivieren. Achtung: Evtl. Probleme mit History-Adapter."],
+  "ISGReboot": ["Hardware Neustart"],
+  "enable expert values": ["Werte aus Expertenbereich lesen/schreiben"]
+}

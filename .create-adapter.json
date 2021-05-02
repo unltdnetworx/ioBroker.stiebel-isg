@@ -1,0 +1,39 @@
+{
+	"cli": true,
+	"adapterName": "stiebel-isg",
+	"title": "Stiebel-ISG",
+	"description": "This adapter is a ment to read values from stiebel-eltron/tecalor internet service gateways (ISG) and control the device.",
+	"keywords": [
+		"Stiebel-Eltron/Tecalor",
+		"Internet Service Gateway",
+		"ISG"
+	],
+	"expert": "no",
+	"features": [
+		"adapter"
+	],
+	"adminFeatures": [],
+	"type": "climate-control",
+	"startMode": "daemon",
+	"connectionType": "local",
+	"dataSource": "poll",
+	"connectionIndicator": "no",
+	"language": "JavaScript",
+	"adminReact": "no",
+	"tools": [
+		"ESLint",
+		"type checking"
+	],
+	"indentation": "Tab",
+	"quotes": "double",
+	"es6class": "yes",
+	"authorName": "Michael Schuster",
+	"authorGithub": "unltdnetworx",
+	"authorEmail": "development@unltd-networx.de",
+	"gitRemoteProtocol": "HTTPS",
+	"gitCommit": "no",
+	"license": "MIT License",
+	"ci": "gh-actions",
+	"dependabot": "no",
+	"creatorVersion": "1.33.0"
+}

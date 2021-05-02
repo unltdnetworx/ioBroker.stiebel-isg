@@ -1,0 +1,117 @@
+{
+	"common": {
+		"name": "stiebel-isg",
+		"version": "1.7.0",
+		"news": {
+			"1.6.1": {
+			  "en": "new values for isg-version 12 implemented",
+			  "de": "neue Werte für ISG-Version 12 hinzugefügt"
+			},
+			"1.6.0": {
+			  "en": "isg-sites to read values from, can now be select by the user",
+			  "de": "ISG-Seiten die ausgelesen werden, können nun vom User gewählt werden"
+			},
+			"1.5.3": {
+			  "en": "bugfix in latest_value in statistics for database",
+			  "de": "Fehlerbehebung für latest_value in Statistik für Datenbanken"
+			},
+			"1.5.2": {
+			  "en": "latest_value added in statistics for database",
+			  "de": "latest_value in Statistik hinzugefügt für Datenbanken"
+			},
+			"1.5.1": {
+			  "en": "new adapter testing and security update",
+			  "de": "neue Version von Adapter testing und Sicherheits-Updates"
+			},
+			"1.5.0": {
+			  "en": "support for cooling values and startpage graphs",
+			  "de": "Unterstützung für Kühlungswerte und Werte aus der Statistik auf der Startseite"
+			},
+			"1.4.11": {
+			  "en": "support for further heatingtyp: WPL25A",
+			  "de": "Unterstützung für weiteren Heizungstyp: WPL25A"
+			},
+			"1.4.10": {
+			  "en": "bugfix for group definitons",
+			  "de": "Bug behoben: Fehler bei Erstellung einzelner Gruppen"
+			},
+			"1.4.9": {
+			  "en": "bug in rounding for info-values fixed",
+			  "de": "Bug behoben: Rundungsfehler im Infobereich"
+			},
+			"1.4.8": {
+			  "en": "update due to security vulnerabilities in dependencies",
+			  "de": "Update aufgrund von Sicherheitslücken in Abhängigkeiten"
+			},
+			"1.4.7": {
+			  "en": "update due to security vulnerabilities in dependencies",
+			  "de": "Update aufgrund von Sicherheitslücken in Abhängigkeiten"
+			}
+		},
+		"titleLang": {
+			"en": "Stiebel-ISG",
+			"de": "Stiebel-ISG",
+			"ru": "Stiebel-ISG",
+			"pt": "Stiebel-ISG",
+			"nl": "Stiebel-ISG",
+			"fr": "Stiebel-ISG",
+			"it": "Stiebel-ISG",
+			"es": "Stiebel-ISG",
+			"pl": "Stiebel-ISG",
+			"zh-cn": "Stiebel-ISG"
+		},
+		"desc": {
+			  "en": "This adapter is a ment to read values from stiebel-eltron/tecalor internet service gateways (ISG) and control the device.",
+			  "de": "Dieser Adapter dient zum Auslesen der Werten des Internetdienst-Gateways (ISG) von Stiebel-Eltron / Tecalor und zum Steuern des Geräts.",
+			  "ru": "Этот адаптер предназначен для считывания значений со шлюзов интернет-сервисов stiebel-eltron / tecalor (ISG) и управления устройством.",
+			  "pt": "Este adaptador é um ment para ler valores de stiebel-eltron / tecalor Internet Service Gateways (ISG) e controlar o dispositivo.",
+			  "nl": "Deze adapter is bedoeld om waarden van stiebel-eltron / tecalor internet service gateways (ISG) uit te lezen en het apparaat te besturen.",
+			  "fr": "Cet adaptateur permet de lire les valeurs des passerelles de service Internet (ISG) stiebel-eltron / tecalor et de contrôler l'appareil.",
+			  "it": "Questo adattatore consente di leggere i valori dai gateway di servizi Internet (ISG) stiebel-eltron / tecalor e di controllare il dispositivo.",
+			  "es": "Este adaptador es una herramienta para leer valores de stiebel-eltron / tecalor internet service gateways (ISG) y controlar el dispositivo.",
+			  "pl": "Ten adapter służy do odczytywania wartości z bramek usług internetowych (ISG) firmy stiebel-eltron / tecalor i do sterowania urządzeniem.",
+			  "zh-cn": "该适配器可用于从stiebel-eltron / tecalor Internet服务网关（ISG）读取值并控制设备。"
+		},
+		"authors": [
+			"Michael Schuster <development@unltd-networx.de>"
+		],
+		"keywords": [
+			"Stiebel-Eltron/Tecalor",
+			"Internet Service Gateway",
+			"ISG"
+		],
+		"license": "MIT",
+		"platform": "Javascript/Node.js",
+		"icon": "stiebel-isg.png",
+		"enabled": true,
+		"extIcon": "https://raw.githubusercontent.com/unltdnetworx/ioBroker.stiebel-isg/master/admin/stiebel-isg.png",
+		"readme": "https://github.com/unltdnetworx/ioBroker.stiebel-isg/blob/master/README.md",
+		"loglevel": "info",
+		"mode": "daemon",
+		"type": "climate-control",
+		"compact": true,
+		"connectionType": "local",
+		"dataSource": "poll",
+		"materialize": true,
+		"dependencies": [
+			{
+				"js-controller": ">=2.0.0"
+			}
+		]
+	},
+	"native": {
+		"isgUser": "",
+		"isgPassword": "",
+		"isgAddress": "",
+		"isgIntervall": 60,
+		"isgCommandIntervall": 3600,
+		"isgUmlauts": "no",
+		"isgExpert": false,
+		"isgCommandPaths": "0;4,0,0;4,0,1;4,0,2;4,0,3;4,0,4;4,0,5;4,1,0;4,1,1;4,2,0;4,2,1;4,2,2;4,2,4;4,2,6;4,2,3;4,2,5;4,2,7;4,3;4,3,0;4,3,1;4,3,2;4,3,3;4,3,4",
+		"isgValuePaths": "1,0;1,1;1,2;2,3;2,13",
+		"isgStatusPaths": "1,0;2,0",
+		"isgExpertPaths": "4,9,0;4,9,1;4,9,2;4,9,3;4,9,4;4,9,5;4,7;4,7,1;4,7,2;4,7,3;4,7,4;4,7,5;4,7,6;4,7,7;4,7,8"
+	},
+	"objects": [],
+	"instanceObjects": []
+}

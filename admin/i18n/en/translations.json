@@ -1,0 +1,18 @@
+{
+  "IP address or domain of the isg": ["ip address or domain of the Internet Service Gateway"],
+  "username for the isg": ["username of the Internet Service Gateway"],
+  "password for the isg": ["password of the Internet Service Gateway"],
+  "IP address": ["ip address"],
+  "username": ["username"],
+  "password": ["password"],
+  "intervall for values to pull": ["intervall for values to pull out of the ISG"],
+  "intervall for commands to pull": ["intervall for commands to pull out of the ISG (changes less frequently)"],
+  "isg password": ["ISG password"],
+  "AUSSENTEMPERATUR": ["temperature outside"],
+  "info": ["info"],
+  "yes": ["yes"],
+  "no": ["no"],
+  "umlauts active": ["Activate umlauts in objects. Warning: could cause problems in history-adapter."],
+  "ISGReboot": ["reboot hardware"],
+  "enable expert values": ["Werte aus Expertenbereich lesen/schreiben"]
+}
