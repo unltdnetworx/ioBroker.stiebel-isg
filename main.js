@@ -145,7 +145,7 @@ function updateState (strGroup,valTag,valTagLang,valType,valUnit,valRole,valValu
 		endPaths.push(endPaths[i-1] + "." + splitPath[i]);
 	}
 	endPaths.forEach(element => adapter.setObjectNotExists(
-		element, {
+		element.replace(/.$/, ""), {
 			type: "channel"
 		},
 	));
@@ -357,7 +357,7 @@ function createISGCommands (strGroup,valTag,valTagLang,valType,valUnit,valRole,v
 		endPaths.push(endPaths[i-1] + "." + splitPath[i]);
 	}
 	endPaths.forEach(element => adapter.setObjectNotExists(
-		element, {
+		element.replace(/.$/, ""), {
 			type: "channel"
 		},
 	));
