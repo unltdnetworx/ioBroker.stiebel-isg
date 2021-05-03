@@ -139,17 +139,6 @@ function updateState (strGroup,valTag,valTagLang,valType,valUnit,valRole,valValu
 
 	valTag = valTag.replace(/[*]+/g,"_");
 
-	const splitPath = strGroup.split(".");
-	const endPaths = [splitPath[0]];
-	for(let i = 1; i <= splitPath.length-1; i++){
-		endPaths.push(endPaths[i-1] + "." + splitPath[i]);
-	}
-	endPaths.forEach(element => adapter.setObjectNotExists(
-		element.replace(/.$/, ""), {
-			type: "channel"
-		},
-	));
-
 	adapter.setObjectNotExists(
 		strGroup + "." + valTag, {
 			type: "state",
@@ -350,17 +339,6 @@ function createISGCommands (strGroup,valTag,valTagLang,valType,valUnit,valRole,v
 	valTag = valTag.replace(/[*]+/g,"_");
 
 	valUnit = valUnit.replace(/ +0+/g,"");
-
-	const splitPath = strGroup.split(".");
-	const endPaths = [splitPath[0]];
-	for(let i = 1; i <= splitPath.length-1; i++){
-		endPaths.push(endPaths[i-1] + "." + splitPath[i]);
-	}
-	endPaths.forEach(element => adapter.setObjectNotExists(
-		element.replace(/.$/, ""), {
-			type: "channel"
-		},
-	));
 
 	const commonobj = {
 		name: valTagLang,
