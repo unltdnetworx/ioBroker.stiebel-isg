@@ -44,11 +44,11 @@ Kaffee spendieren/serve a coffee
 
 * new adapter structure, bugfixes for new js-controller
 
-### 1.6.0
+### 1.6.1
 
 * new values for isg-version 12 implemented
 
-### 1.6.1
+### 1.6.0
 
 * isg-sites to read values from, can now be select by the user
 
