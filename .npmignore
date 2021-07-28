@@ -20,6 +20,7 @@ package-lock.json
 
 # i18n intermediate files
 admin/i18n
+src/
 
 # maintenance scripts
 maintenance/**
