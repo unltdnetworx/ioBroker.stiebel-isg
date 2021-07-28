@@ -36,6 +36,10 @@ Kaffee spendieren/serve a coffee
 
 ## Changelog
 
+### 1.7.1
+
+* bugfix for translation
+
 ### 1.7.0
 
 * new adapter structure, bugfixes for new js-controller
