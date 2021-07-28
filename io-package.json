@@ -2,8 +2,12 @@
 	"common": {
 		"name": "stiebel-isg",
 		"title": "Stiebel Eltron/Tecalor ISG",
-		"version": "1.7.1",
+		"version": "1.7.2",
 		"news": {
+			"1.7.2": {
+				"en": "ready for Admin 5 and NodeJS 16",
+				"de": "Anpassungen für Admin 5 and NodeJS 16"
+			},
 			"1.7.1": {
 				"en": "bugfix for translation",
 				"de": "Fehlerbehebung für Übersetzung"
