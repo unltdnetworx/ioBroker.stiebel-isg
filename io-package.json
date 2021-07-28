@@ -1,6 +1,7 @@
 {
 	"common": {
 		"name": "stiebel-isg",
+		"title": "Stiebel Eltron/Tecalor ISG",
 		"version": "1.7.1",
 		"news": {
 			"1.7.1": {
