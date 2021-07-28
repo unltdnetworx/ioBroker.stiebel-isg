@@ -53,10 +53,10 @@ function startAdapter(options) {
 				} else if (obj) {
 					if (!obj.common.language) {
 						adapter.log.info("Language not set. English set therefore.");
-						nameTranslation = require("./src/i18n/en/translations.json");
+						nameTranslation = require("./lang/i18n/en/translations.json");
 					} else {
 						systemLanguage = obj.common.language;
-						nameTranslation = require("./src/i18n/" + systemLanguage + "/translations.json");
+						nameTranslation = require("./lang/i18n/" + systemLanguage + "/translations.json");
 					}
 
 					setJar(request.jar());
