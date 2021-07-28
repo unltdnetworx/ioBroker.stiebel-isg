@@ -36,6 +36,10 @@ Kaffee spendieren/serve a coffee
 
 ## Changelog
 
+### 1.7.3
+
+* bugfix
+
 ### 1.7.2
 
 * ready for Admin 5 and NodeJS 16
