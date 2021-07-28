@@ -457,13 +457,13 @@ async function getIsgCommands(sidePath) {
 			if(sidePath == "0"){
 				let valCommand;
 				let idCommand;
-				let statesCommand;
+				let statesCommand = "";
 				const nameCommand = $(el).parent().parent().find("h3").text();
 				if(nameCommand == "Betriebsart"){
 					const idStartCommand = $(el).attr("name");
 					if(idStartCommand.match(/aval/)) {
+						statesCommand = "{";
 						$(el).parent().parent().parent().parent().find("div.values").each(function(_j, ele){
-							statesCommand = "{";
 							$(ele).find("input").each(function(_k,elem){
 								idCommand = $(elem).attr("name");
 								if(!(idCommand.match(/aval/) || idCommand.match(/info/))) {
