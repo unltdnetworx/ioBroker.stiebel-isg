@@ -50,7 +50,7 @@ jobs:
         runs-on: ${{ matrix.os }}
         strategy:
             matrix:
-                node-version: [10.x, 12.x, 14.x]
+                node-version: [12.x, 14.x, 16.x]
                 os: [ubuntu-latest, windows-latest, macos-latest]
 
         steps:
@@ -76,7 +76,7 @@ jobs:
               if: startsWith(runner.OS, 'windows')
               run: set DEBUG=testing:* & npm run test:integration
 
-# TODO: To enable automatic npm releases, create a token on npmjs.org 
+# TODO: To enable automatic npm releases, create a token on npmjs.org
 # Enter this token as a GitHub secret (with name NPM_TOKEN) in the repository options
 # Then uncomment the following block:
 
