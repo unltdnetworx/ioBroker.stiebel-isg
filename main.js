@@ -124,6 +124,9 @@ function translateName(strName, intType) {
 
 function updateState (strGroup,valTag,valTagLang,valType,valUnit,valRole,valValue) {
 
+	if(valTag == null)
+		return;
+
 	let ValueExpire = null;
 
 	if(strGroup.startsWith(translateName("settings")) || strGroup.startsWith(translateName("info") + ".ANLAGE.STATISTIK")){
@@ -331,6 +334,9 @@ async function getIsgValues(sidePath) {
 }
 
 function createISGCommands (strGroup,valTag,valTagLang,valType,valUnit,valRole,valValue,valStates,valMin,valMax) {
+	if(valTag == null)
+		return;
+		
 	if(adapter.config.isgUmlauts == "no"){
 		valTag = Umlauts(valTag);
 		strGroup = Umlauts(strGroup);
