@@ -2,8 +2,12 @@
 	"common": {
 		"name": "stiebel-isg",
 		"title": "Stiebel Eltron/Tecalor ISG",
-		"version": "1.7.4",
+		"version": "1.7.5",
 		"news": {
+			"1.7.5": {
+				"en": "security enhancements",
+				"de": "Sicherheits Verbesserungen"
+			},
 			"1.7.4": {
 				"en": "security enhancements",
 				"de": "Sicherheits Verbesserungen"
