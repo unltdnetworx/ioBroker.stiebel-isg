@@ -2,8 +2,12 @@
 	"common": {
 		"name": "stiebel-isg",
 		"title": "Stiebel Eltron/Tecalor ISG",
-		"version": "1.7.5",
+		"version": "1.7.6",
 		"news": {
+			"1.7.6": {
+				"en": "fix for js-controller v5",
+				"de": "Fehlerbehebung für js-controller v5"
+			},
 			"1.7.5": {
 				"en": "security enhancements",
 				"de": "Sicherheits Verbesserungen"
