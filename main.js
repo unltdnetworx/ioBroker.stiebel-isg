@@ -336,7 +336,7 @@ async function getIsgValues(sidePath) {
 function createISGCommands (strGroup,valTag,valTagLang,valType,valUnit,valRole,valValue,valStates,valMin,valMax) {
 	if(valTag == null)
 		return;
-		
+
 	if(adapter.config.isgUmlauts == "no"){
 		valTag = Umlauts(valTag);
 		strGroup = Umlauts(strGroup);
@@ -712,7 +712,7 @@ function main() {
 			},
 			native: {}
 		},
-		adapter.subscribeStates("ISGReboot")
+		() => adapter.subscribeStates("ISGReboot")
 	);
 
 	host = adapter.config.isgAddress;
