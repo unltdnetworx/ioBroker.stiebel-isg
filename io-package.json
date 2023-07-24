@@ -2,60 +2,112 @@
 	"common": {
 		"name": "stiebel-isg",
 		"title": "Stiebel Eltron/Tecalor ISG",
-		"version": "1.7.6",
+		"version": "1.7.7",
 		"news": {
+			"1.7.7": {
+				"en": "code enhancements for js-controller v5",
+				"de": "Codeerweiterungen für js-controller v5",
+				"ru": "улучшения кода для js-controller v5",
+				"pt": "melhorias de código para js-controller v5",
+				"nl": "codeverhoging voor js-controller v5",
+				"fr": "améliorations de code pour js-controller v5",
+				"it": "miglioramenti del codice per js-controller v5",
+				"es": "mejoras de código para js-controller v5",
+				"pl": "rozszerzenia kodu dla js-controller v5",
+				"uk": "javascript licenses api веб-сайт go1.13.8",
+				"zh-cn": "b. 加强对控制的容忍 v 5"
+			  },
 			"1.7.6": {
 				"en": "fix for js-controller v5",
-				"de": "Fehlerbehebung für js-controller v5"
-			},
+				"de": "Anpassungen für js-controller v5",
+				"ru": "фикс для js-controller v5",
+				"pt": "correção para js-controller v5",
+				"nl": "vertaling:",
+				"fr": "fixation pour js-controller v5",
+				"it": "correzione per js-controller v5",
+				"es": "fijado para js-controller v5",
+				"pl": "zastosowanie js-controller v5",
+				"uk": "фіксація для js-controller v5",
+				"zh-cn": "fix 控方诉5"
+			  },
 			"1.7.5": {
-				"en": "security enhancements",
-				"de": "Sicherheits Verbesserungen"
-			},
+				"en": "security improvements",
+				"de": "Verbesserung der Sicherheit",
+				"ru": "улучшения безопасности",
+				"pt": "melhorias de segurança",
+				"nl": "beveiliging verbetert",
+				"fr": "amélioration de la sécurité",
+				"it": "miglioramento della sicurezza",
+				"es": "mejoras de seguridad",
+				"pl": "poprawa bezpieczeństwa",
+				"uk": "підвищення безпеки",
+				"zh-cn": "安全改善"
+			  },
 			"1.7.4": {
-				"en": "security enhancements",
-				"de": "Sicherheits Verbesserungen"
-			},
+				"en": "security improvements",
+				"de": "Verbesserung der Sicherheit",
+				"ru": "улучшения безопасности",
+				"pt": "melhorias de segurança",
+				"nl": "beveiliging verbetert",
+				"fr": "amélioration de la sécurité",
+				"it": "miglioramento della sicurezza",
+				"es": "mejoras de seguridad",
+				"pl": "poprawa bezpieczeństwa",
+				"uk": "підвищення безпеки",
+				"zh-cn": "安全改善"
+			  },
 			"1.7.3": {
 				"en": "bugfix",
-				"de": "Bugfix"
-			},
+				"de": "Fehlerbehebung",
+				"ru": "багфикс",
+				"pt": "correção de erros",
+				"nl": "vuur",
+				"fr": "bugfix",
+				"it": "bugfix",
+				"es": "bugfix",
+				"pl": "trąbka",
+				"uk": "шемале",
+				"zh-cn": "b ugfix"
+			  },
 			"1.7.2": {
 				"en": "ready for Admin 5 and NodeJS 16",
-				"de": "Anpassungen für Admin 5 and NodeJS 16"
-			},
+				"de": "Anpassungen für Admin 5 und NodeJS 16",
+				"ru": "готов к Admin 5 и NodeJS 16",
+				"pt": "pronto para Admin 5 e NodeJS 16",
+				"nl": "klaar voor Admin 5 en NodeJS 16",
+				"fr": "prêt pour Admin 5 et NodeJS 16",
+				"it": "pronto per Admin 5 e NodeJS 16",
+				"es": "listo para Admin 5 y NodeJS 16",
+				"pl": "admin 5 i NodeJS 16",
+				"uk": "готовий до Admin 5 і NodeJS 16",
+				"zh-cn": "准备为Admin 5和NodeJS 16"
+			  },
 			"1.7.1": {
 				"en": "bugfix for translation",
-				"de": "Fehlerbehebung für Übersetzung"
-			},
+				"de": "Bugfix für die Übersetzung",
+				"ru": "bugfix для перевода",
+				"pt": "bugfix para tradução",
+				"nl": "vertaling:",
+				"fr": "bugfix pour la traduction",
+				"it": "bugfix per la traduzione",
+				"es": "bugfix para la traducción",
+				"pl": "błąd w tłumaczeniu",
+				"uk": "виправлення помилок для перекладу",
+				"zh-cn": "b 翻译的顺序"
+			  },
 			"1.7.0": {
 				"en": "new adapter structure",
-				"de": "neue Struktur für Adapter"
-			},
-			"1.6.1": {
-			  "en": "new values for isg-version 12 implemented",
-			  "de": "neue Werte für ISG-Version 12 hinzugefügt"
-			},
-			"1.6.0": {
-			  "en": "isg-sites to read values from, can now be select by the user",
-			  "de": "ISG-Seiten die ausgelesen werden, können nun vom User gewählt werden"
-			},
-			"1.5.3": {
-			  "en": "bugfix in latest_value in statistics for database",
-			  "de": "Fehlerbehebung für latest_value in Statistik für Datenbanken"
-			},
-			"1.5.2": {
-			  "en": "latest_value added in statistics for database",
-			  "de": "latest_value in Statistik hinzugefügt für Datenbanken"
-			},
-			"1.5.1": {
-			  "en": "new adapter testing and security update",
-			  "de": "neue Version von Adapter testing und Sicherheits-Updates"
-			},
-			"1.5.0": {
-			  "en": "support for cooling values and startpage graphs",
-			  "de": "Unterstützung für Kühlungswerte und Werte aus der Statistik auf der Startseite"
-			}
+				"de": "neue Adapterstruktur",
+				"ru": "новая структура адаптера",
+				"pt": "nova estrutura do adaptador",
+				"nl": "nieuwe adapterstructuur",
+				"fr": "nouvelle structure",
+				"it": "nuova struttura adattatore",
+				"es": "nueva estructura de adaptador",
+				"pl": "nowa struktura adaptacyjna",
+				"uk": "нова структура адаптера",
+				"zh-cn": "新的适应结构"
+			  }
 		},
 		"titleLang": {
 			"en": "Stiebel-ISG",
