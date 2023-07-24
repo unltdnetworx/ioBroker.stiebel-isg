@@ -1,7 +1,6 @@
 {
 	"common": {
 		"name": "stiebel-isg",
-		"title": "Stiebel Eltron/Tecalor ISG",
 		"version": "1.7.7",
 		"news": {
 			"1.7.7": {
@@ -110,29 +109,31 @@
 			  }
 		},
 		"titleLang": {
-			"en": "Stiebel-ISG",
-			"de": "Stiebel-ISG",
-			"ru": "Stiebel-ISG",
-			"pt": "Stiebel-ISG",
-			"nl": "Stiebel-ISG",
-			"fr": "Stiebel-ISG",
-			"it": "Stiebel-ISG",
-			"es": "Stiebel-ISG",
-			"pl": "Stiebel-ISG",
-			"zh-cn": "Stiebel-ISG"
-		},
+			"en": "Stiebel-ISG/Tecalor-ISG",
+			"de": "Stiebel-ISG/Tecalor-ISG",
+			"ru": "Stiebel-ISG/Текалор-ISG",
+			"pt": "Stiebel-ISG/Tecalor-ISG",
+			"nl": "Stiebel-ISG/Tecalor-ISG",
+			"fr": "Stiebel-ISG/Tecalor-ISG",
+			"it": "Stiebel-ISG/Tecalor-ISG",
+			"es": "Stiebel-ISG/Tecalor-ISG",
+			"pl": "Stiebel-ISG/Tecalor-ISG",
+			"uk": "Стібел-ІСГ/Текалор-ІСГ",
+			"zh-cn": "Stiebel-ISG/Tecalor-ISG"
+		  },
 		"desc": {
-			  "en": "This adapter is a ment to read values from stiebel-eltron/tecalor internet service gateways (ISG) and control the device.",
-			  "de": "Dieser Adapter dient zum Auslesen der Werten des Internetdienst-Gateways (ISG) von Stiebel-Eltron / Tecalor und zum Steuern des Geräts.",
-			  "ru": "Этот адаптер предназначен для считывания значений со шлюзов интернет-сервисов stiebel-eltron / tecalor (ISG) и управления устройством.",
-			  "pt": "Este adaptador é um ment para ler valores de stiebel-eltron / tecalor Internet Service Gateways (ISG) e controlar o dispositivo.",
-			  "nl": "Deze adapter is bedoeld om waarden van stiebel-eltron / tecalor internet service gateways (ISG) uit te lezen en het apparaat te besturen.",
-			  "fr": "Cet adaptateur permet de lire les valeurs des passerelles de service Internet (ISG) stiebel-eltron / tecalor et de contrôler l'appareil.",
-			  "it": "Questo adattatore consente di leggere i valori dai gateway di servizi Internet (ISG) stiebel-eltron / tecalor e di controllare il dispositivo.",
-			  "es": "Este adaptador es una herramienta para leer valores de stiebel-eltron / tecalor internet service gateways (ISG) y controlar el dispositivo.",
-			  "pl": "Ten adapter służy do odczytywania wartości z bramek usług internetowych (ISG) firmy stiebel-eltron / tecalor i do sterowania urządzeniem.",
-			  "zh-cn": "该适配器可用于从stiebel-eltron / tecalor Internet服务网关（ISG）读取值并控制设备。"
-		},
+			"en": "This adapter is a ment to read values from stiebel-eltron/tecalor internet service gateways (ISG) and control the device.",
+			"de": "Dieser Adapter dient zum Auslesen der Werten des Internetdienst-Gateways (ISG) von Stiebel-Eltron / Tecalor und zum Steuern des Geräts.",
+			"ru": "Этот адаптер является ментом для чтения значений от stiebel-eltron/tecalor internet service Gateways (ISG) и управления устройством.",
+			"pt": "Este adaptador é um complemento para ler valores de gateways de serviço de Internet esteibel-eltron/tecalor (ISG) e controlar o dispositivo.",
+			"nl": "Deze adapter is een ment om waarden te lezen van stiebel-eltron/tecalor internetbediening en controleer het apparaat.",
+			"fr": "Cet adaptateur est un ment pour lire les valeurs des passerelles de service Internet stiebel-eltron/tecalor (ISG) et contrôler l'appareil.",
+			"it": "Questo adattatore è un'azione per leggere i valori dai gateway di servizio internet di stiebel-eltron/tecalor (ISG) e controllare il dispositivo.",
+			"es": "Este adaptador es un ment para leer valores de los portales de servicio stiebel-eltron/tecalor de Internet (ISG) y controlar el dispositivo.",
+			"pl": "Ta adapter jest mentem do czytania wartości od stiebel-eltron/tecalorowych portali serwisowych (ISG) i kontroli urządzenia.",
+			"uk": "Цей адаптер є домом для зчитування значень від stiebel-eltron/tecalor Інтернет-додатків (ISG) та керування пристроєм.",
+			"zh-cn": "这种适应者是从半贝尔-客运/保护者互联网服务网(ISG)和控制该装置的价值观。."
+		  },
 		"authors": [
 			"Michael Schuster <development@unltd-networx.de>"
 		],
